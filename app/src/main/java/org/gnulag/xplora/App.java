@@ -17,12 +17,12 @@ public class App {
         JsonUtil.loadJsonData(rbTree, "/data.json");
 
         String searchParam = "acak";
-        List<String> combined = new ArrayList<>();
 
-        combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
-        combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
-
-        PrintsUtil.printResults(rbTree, combined);
+        // List<String> valuesOfValuesByContainingKey =
+        // rbTree.searchValuesByContainingKey(searchParam);
+        List<String> valuesOfKeysByContainingKey = rbTree.searchKeysByContainingKey(searchParam);
+        // System.out.println(valuesOfValuesByContainingKey);
+        System.out.println(valuesOfKeysByContainingKey);
     }
 
 }

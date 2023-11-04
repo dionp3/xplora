@@ -26,7 +26,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         root = TNULL;
     }
 
-    private List<String> gimmickList = Arrays.asList("random", "acak", "calculator", "kalkulator", "suit");
+    private boolean isGimmickDisplayed = false;
 
     public Node<K, V> getRoot() {
         return this.root;
@@ -38,6 +38,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
     public List<K> searchKeysByContainingValue(String targetValue) {
         List<K> matchingKeys = new ArrayList<>();
+        isGimmickDisplayed = false;
         searchKeysByContainingValueHelper(root, targetValue, matchingKeys);
         return matchingKeys;
     }
@@ -52,6 +53,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
     public List<K> searchKeysByContainingKey(String targetKeySubstring) {
         List<K> matchingKeys = new ArrayList<>();
+        isGimmickDisplayed = false;
         searchKeysByContainingKeyHelper(root, targetKeySubstring, matchingKeys);
         return matchingKeys;
     }
@@ -73,6 +75,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
     public List<V> searchValuesByContainingKey(String targetKeyString) {
         List<V> matchingValues = new ArrayList<>();
+        isGimmickDisplayed = false;
         searchValuesByContainingKeyHelper(root, targetKeyString, matchingValues);
         return matchingValues;
     }
@@ -336,12 +339,18 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         String value = node.value.toString().toLowerCase();
 
         if (key.contains("random") || value.contains("random") || key.contains("acak") || value.contains("acak")) {
-            randomGimmick();
+            if (!isGimmickDisplayed) {
+                randomGimmick();
+                isGimmickDisplayed = true;
+            }
         }
 
         if (key.contains("kalkulator") || value.contains("kalkulator") || key.contains("calculator")
                 || value.contains("calculator")) {
-            calculatorGimmick();
+            if (!isGimmickDisplayed) {
+                calculatorGimmick();
+                isGimmickDisplayed = true;
+            }
         }
     }
 
