@@ -11,27 +11,32 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="109.0" prefWidth="600.0">
+      <HBox prefHeight="109.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/stylesBoard.css">
          <children>
             <Pane prefHeight="85.0" prefWidth="226.0">
                <children>
-                  <ImageView fitHeight="179.0" fitWidth="217.0" layoutX="3.0" layoutY="-47.0" pickOnBounds="true" preserveRatio="true" >
+                  <ImageView fitHeight="179.0" fitWidth="217.0" layoutX="-4.0" layoutY="-55.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../css/image/icon2.png" />
-                     </image></ImageView>
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane prefHeight="83.0" prefWidth="373.0">
                <children>
-                  <TextField layoutX="6.0" layoutY="25.0" prefHeight="36.0" prefWidth="320.0" promptText="Isi " />
+                  <TextField layoutX="14.0" layoutY="16.0" prefHeight="36.0" prefWidth="291.0" promptText="Isi " />
                </children>
             </Pane>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="168.0" prefWidth="127.0" text="Search" styleClass="label" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button alignment="CENTER" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" stylesheets="@../css/stylesBoard.css" text="Search" />
+               </children>
+            </Pane>
          </children>
       </HBox>
-      <ScrollPane prefHeight="339.0" prefWidth="600.0">
+      <ScrollPane prefHeight="421.0" prefWidth="476.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
