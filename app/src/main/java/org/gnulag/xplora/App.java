@@ -3,6 +3,8 @@
  */
 package org.gnulag.xplora;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 
 public class App {
@@ -10,26 +12,54 @@ public class App {
     RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
 
     // Menambahkan data ke search engine
-    rbTree.insert("Judul 1", "Konten untuk Judul 1");
-    rbTree.insert("Judul 2", "Konten untuk Judul 2");
-    rbTree.insert("Judul 3", "Konten untuk Judul 3");
-
+    rbTree.insert(
+        "Wheel of Names | Pemilih nama acak",
+        "How to use the wheel spinner. It's easy: type in your entries in the textbox to the right"
+            + " of the wheel, then click the wheel to spin it and get a random winner. To make the"
+            + " wheel your own by customizing the colors, sounds, and spin time, click. Customize."
+            + " at the top of the page. Video reviews and tutorials by users.");
+    rbTree.insert(
+        "Arti kata acak - Kamus Besar Bahasa Indonesia (KBBI) Online",
+        "acak 1 1 a tanpa pola; sebarang: responden kuis itu diambil secara --; 2 n Stat"
+            + " penggambaran suatu pemilihan yang tidak dibatasi atau kalau dibatasi haruslah"
+            + " diwujudkan dengan menggunakan pemilihan peluang; acak-acak adv tergesa-gesa;"
+            + " terburu-buru; meng·a·cak v melakukan sesuatu tidak dengan aturan; mengacaukan;"
+            + " acak-acak·an a tidak teratur; tidak cermat; serampangan; kacau");
+    rbTree.insert(
+        "Generator nomor acak - PiliApp",
+        "Ini menghasilkan angka acak kriptografis yang cocok untuk sebagian besar"
+            + " penggunaan kriptografi. Ini menggunakan fungsi kripto bawaan ("
+            + " crypto.getRandomValues ) alih-alih pengacak populer ( Math.random ) atau algoritma"
+            + " MT yang terkenal ( Mersenne-Twister ).");
+    rbTree.insert(
+        "Wiktionary, the free dictionary",
+        "\"acak\" in Kamus Besar Bahasa Indonesia, Jakarta: Language Development and Fostering"
+            + " Agency — Ministry of Education, Culture, Research, and Technology of the Republic"
+            + " Indonesia, 2016. Sakizaya Adjective . acak. dry");
     // Mencari judul berdasarkan konten
-    String targetValue = "Konten untuk Judul 2";
-    String judulDitemukan = rbTree.getKeyByValue(targetValue);
-    if (judulDitemukan != null) {
-      System.out.println("Judul yang sesuai dengan konten: " + judulDitemukan);
-    } else {
-      System.out.println("Tidak ada judul yang sesuai dengan konten yang ditemukan.");
+    String targetValue = "acak";
+    List<String> judulDitemukan = rbTree.searchKeysByContainingKey(targetValue);
+    List<String> kontenDitemukan = rbTree.searchKeysByContainingValue(targetValue);
+    List<String> combined = new ArrayList<String>(judulDitemukan);
+    System.out.println("judul: " + judulDitemukan);
+    System.out.println("konten: " + kontenDitemukan);
+    for (String konten : kontenDitemukan) {
+      if (!combined.contains(konten)) {
+        combined.add(konten);
+      }
     }
-
+    for (String judul : combined) {
+      System.out.println("judul: " + judul);
+    }
     // Mencari konten berdasarkan judul
-    String targetJudul = "Judul 3";
-    String kontenDitemukan = rbTree.getValueByKey(targetJudul);
-    if (kontenDitemukan != null) {
-      System.out.println("Konten untuk Judul 3: " + kontenDitemukan);
-    } else {
-      System.out.println("Konten tidak ditemukan untuk judul yang diberikan.");
-    }
+    // String targetJudul = "acak";
+    // List<String> kontenDitemukan =
+    // rbTree.searchValuesByContainingKey(targetJudul); if (kontenDitemukan !=
+    // null) {
+    //   System.out.println("konten: " + kontenDitemukan);
+    // } else {
+    //   System.out.println("Konten tidak ditemukan untuk judul yang
+    //   diberikan.");
+    // }
   }
 }

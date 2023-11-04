@@ -46,6 +46,26 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     return null;
   }
 
+  public List<K> searchKeysByContainingKey(String targetKeySubstring) {
+    List<K> matchingKeys = new ArrayList<>();
+    searchKeysByContainingKeyHelper(root, targetKeySubstring, matchingKeys);
+    return matchingKeys;
+  }
+
+  private void searchKeysByContainingKeyHelper(
+      Node<K, V> node, String targetKeySubstring, List<K> matchingKeys) {
+    if (node == TNULL) {
+      return;
+    }
+
+    if (node.key.toString().contains(targetKeySubstring)) {
+      matchingKeys.add(node.key);
+    }
+
+    searchKeysByContainingKeyHelper(node.left, targetKeySubstring, matchingKeys);
+    searchKeysByContainingKeyHelper(node.right, targetKeySubstring, matchingKeys);
+  }
+
   public List<V> searchValuesByContainingKey(String targetKeyString) {
     List<V> matchingValues = new ArrayList<>();
     searchValuesByContainingKeyHelper(root, targetKeyString, matchingValues);
