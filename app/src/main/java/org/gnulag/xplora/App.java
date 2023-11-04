@@ -4,51 +4,93 @@
 package org.gnulag.xplora;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import org.gnulag.xplora.models.RedBlackTreeMap;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 public class App {
   public static void main(String[] args) {
     RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+    List<String> gimmickValues = Arrays.asList("acak", "kertas", "gunting", "batu");
 
-    // Menambahkan data ke search engine
-    rbTree.insert(
-        "Wheel of Names | Pemilih nama acak",
-        "How to use the wheel spinner. It's easy: type in your entries in the textbox to the right"
-            + " of the wheel, then click the wheel to spin it and get a random winner. To make the"
-            + " wheel your own by customizing the colors, sounds, and spin time, click. Customize."
-            + " at the top of the page. Video reviews and tutorials by users.");
-    rbTree.insert(
-        "Arti kata acak - Kamus Besar Bahasa Indonesia (KBBI) Online",
-        "acak 1 1 a tanpa pola; sebarang: responden kuis itu diambil secara --; 2 n Stat"
-            + " penggambaran suatu pemilihan yang tidak dibatasi atau kalau dibatasi haruslah"
-            + " diwujudkan dengan menggunakan pemilihan peluang; acak-acak adv tergesa-gesa;"
-            + " terburu-buru; meng·a·cak v melakukan sesuatu tidak dengan aturan; mengacaukan;"
-            + " acak-acak·an a tidak teratur; tidak cermat; serampangan; kacau");
-    rbTree.insert(
-        "Generator nomor acak - PiliApp",
-        "Ini menghasilkan angka acak kriptografis yang cocok untuk sebagian besar"
-            + " penggunaan kriptografi. Ini menggunakan fungsi kripto bawaan ("
-            + " crypto.getRandomValues ) alih-alih pengacak populer ( Math.random ) atau algoritma"
-            + " MT yang terkenal ( Mersenne-Twister ).");
-    rbTree.insert(
-        "Wiktionary, the free dictionary",
-        "\"acak\" in Kamus Besar Bahasa Indonesia, Jakarta: Language Development and Fostering"
-            + " Agency — Ministry of Education, Culture, Research, and Technology of the Republic"
-            + " Indonesia, 2016. Sakizaya Adjective . acak. dry");
-    // Mencari judul berdasarkan konten
-    String targetValue = "acak";
-    List<String> judulDitemukan = rbTree.searchKeysByContainingKey(targetValue);
-    List<String> kontenDitemukan = rbTree.searchKeysByContainingValue(targetValue);
-    List<String> combined = new ArrayList<String>(judulDitemukan);
-    for (String konten : kontenDitemukan) {
+    try {
+      JSONTokener tokener = new JSONTokener(App.class.getResourceAsStream("/data.json"));
+      JSONArray jsonArray = new JSONArray(tokener);
+      for (int i = 0; i < jsonArray.length(); i++) {
+        JSONObject jsonObject = jsonArray.getJSONObject(i);
+        String key = jsonObject.keys().next();
+        String value = jsonObject.getString(key);
+        rbTree.insert(key, value);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    String searchParam = "gunting";
+    List<String> matchingTitle = rbTree.searchKeysByContainingKey(searchParam);
+    List<String> matchingContent = rbTree.searchKeysByContainingValue(searchParam);
+    List<String> combined = new ArrayList<>();
+    if (gimmickValues.contains(searchParam)) {
+      String gimmickResult = specialGimmick(searchParam);
+      if (!gimmickResult.equals("")) {
+        combined.add(gimmickResult);
+      }
+    }
+    for (String judul : matchingTitle) {
+      combined.add(judul);
+    }
+    for (String konten : matchingContent) {
       if (!combined.contains(konten)) {
         combined.add(konten);
       }
     }
+
     for (String judul : combined) {
-      System.out.println("judul: " + judul);
-      System.out.println("konten: " + rbTree.getValueByKey(judul) + "\n");
+      System.out.println(judul);
+      if (rbTree.getValueByKey(judul) != null) {
+        System.out.println(rbTree.getValueByKey(judul));
+      }
+      System.out.println();
+    }
+  }
+
+  private static String specialGimmick(String gimmick) {
+    Random random = new Random();
+    String result = "";
+    switch (gimmick) {
+      case "acak":
+        for (int i = 0; i < 10; i++) {
+          int randomNumber = random.nextInt(100); // Adjust the range as needed
+          result += randomNumber;
+
+          if (i < 10 - 1) {
+            result += ", "; // Separate numbers with a comma and space
+          }
+        }
+        return result;
+
+      case "kertas":
+      case "gunting":
+      case "batu":
+        List<String> options = Arrays.asList("kertas", "gunting", "batu");
+        String botChoice = options.get(random.nextInt(options.size()));
+        if (botChoice.equals(gimmick)) {
+          result += "Bot's choice: " + botChoice + ", Match result: Draw";
+        } else if ((gimmick.equals("kertas") && botChoice.equals("batu"))
+            || (gimmick.equals("batu") && botChoice.equals("gunting"))
+            || (gimmick.equals("gunting") && botChoice.equals("kertas"))) {
+          result += "Bot's choice: " + botChoice + ", Match result: Player wins";
+        } else {
+          result += "Bot's choice: " + botChoice + ", Match result: Bot wins";
+        }
+        return result;
+
+      default:
+        return "";
     }
   }
 }
