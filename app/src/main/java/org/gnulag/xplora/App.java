@@ -3,12 +3,10 @@
  */
 package org.gnulag.xplora;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import org.gnulag.xplora.models.RedBlackTreeMap;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
+public class App {
+  public static void main(String[] args) {
+    RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+  }
 }
