@@ -4,27 +4,35 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@../resources/css/styles.css" />
+   </stylesheets>
+
    <children>
-      <HBox prefHeight="63.0" prefWidth="600.0">
+      <HBox prefHeight="109.0" prefWidth="600.0">
          <children>
-            <Pane prefHeight="63.0" prefWidth="101.0">
+            <Pane prefHeight="85.0" prefWidth="226.0">
                <children>
-                  <ImageView fitHeight="45.0" fitWidth="68.0" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="179.0" fitWidth="217.0" layoutX="3.0" layoutY="-47.0" pickOnBounds="true" preserveRatio="true" >
+                     <image>
+                        <Image url="@../css/image/icon2.png" />
+                     </image></ImageView>
                </children>
             </Pane>
-            <Pane prefHeight="63.0" prefWidth="373.0">
+            <Pane prefHeight="83.0" prefWidth="373.0">
                <children>
-                  <TextField layoutX="18.0" layoutY="14.0" prefHeight="36.0" prefWidth="324.0" promptText="Isi " />
+                  <TextField layoutX="6.0" layoutY="25.0" prefHeight="36.0" prefWidth="320.0" promptText="Isi " />
                </children>
             </Pane>
-            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="126.0" text="Button" />
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="168.0" prefWidth="127.0" text="Search" styleClass="label" />
          </children>
       </HBox>
       <ScrollPane prefHeight="339.0" prefWidth="600.0">

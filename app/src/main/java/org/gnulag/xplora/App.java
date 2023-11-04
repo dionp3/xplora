@@ -21,7 +21,7 @@ public class App extends Application {
       primaryStage.setScene(scene);
 
       // Set the title of the application window
-      primaryStage.setTitle("JavaFX Hello World");
+      primaryStage.setTitle("xplora");
 
       // Show the application window
       primaryStage.show();
