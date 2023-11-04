@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import java.util.HashMap;
 import java.util.Map;
-
+import javafx.scene.web.WebView;
 public class Controller {
   @FXML
   private TextArea textArea;
@@ -38,57 +38,20 @@ public class Controller {
 
         for (String key : data.keySet()) {
             String value = data.get(key);
+            String formattedKey = key.replace(inputText, "<b>" + inputText + "</b>");
+            String formattedValue = value.replace(inputText, "<b>" + inputText + "</b>");
             if (key.toLowerCase().contains(inputText.toLowerCase()) || value.toLowerCase().contains(inputText.toLowerCase())) {
-                TextArea resultTextArea = new TextArea("judul: " + key + "\nisi konten: " + value);
-                resultTextArea.setWrapText(true);
-                resultTextArea.setPrefWidth(400); // Sesuaikan lebar sesuai kebutuhan
-                textAreaContainer.getChildren().add(resultTextArea);
+                WebView webView = new WebView();
+                String content = "judul: " + formattedKey + "<br>isi konten: " + formattedValue;
+                webView.getEngine().loadContent(content);
+                textAreaContainer.getChildren().add(webView);
+                // TextArea resultTextArea = new TextArea("judul: " + key + "\nisi konten: " + value);
+                // resultTextArea.setWrapText(true);
+                // resultTextArea.setPrefWidth(700); // Sesuaikan lebar sesuai kebutuhan
+                // textAreaContainer.getChildren().add(resultTextArea);
             }
         }
 
         inputTextField.clear();
     }
-
-  // public void showTextInTextArea() {
-  //   String inputText = inputTextField.getText();
-  //   createNewTextArea(inputText);
-  //   inputTextField.clear();
-  // }
-
-  // private void createNewTextArea(String text) {
-  //   TextArea newTextArea = new TextArea(text);
-  //   newTextArea.setWrapText(true);
-  //   textAreaContainer.getChildren().add(newTextArea);
-  // }
-
-  // public void iterateThroughTextArea() {
-  //   for (int i = 0; i < textAreaContainer.getChildren().size(); i++) {
-  //     TextArea textArea = (TextArea) textAreaContainer.getChildren().get(i);
-  //     String text = textArea.getText();
-  //     System.out.println("TextArea " + (i + 1) + ": " + text);
-  //   }
-  // }
 }
-  // public void showTextInTextArea() {
-  //       String inputText = inputTextField.getText();
-
-  //       // Buat tiga baris teks yang berbeda
-  //       String text1 = inputText;
-  //       String text2 = inputText + " ribu";
-  //       String text3 = inputText + " merupakan bilangan";
-
-  //       // Tambahkan tiga baris teks ke TextArea
-  //       textArea.appendText(text1 + "\n" + text2 + "\n" + text3 + "\n");
-
-  //       // Bersihkan TextField
-  //       inputTextField.clear();
-  //   }
-
-  //   public void iterateThroughTextArea() {
-  //       String text = textArea.getText();
-  //       String[] lines = text.split("\n");
-  //       for (String line : lines) {
-  //           System.out.println(line);
-  //       }
-  //   }
-
