@@ -8,5 +8,28 @@ import org.gnulag.xplora.models.RedBlackTreeMap;
 public class App {
   public static void main(String[] args) {
     RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+
+    // Menambahkan data ke search engine
+    rbTree.insert("Judul 1", "Konten untuk Judul 1");
+    rbTree.insert("Judul 2", "Konten untuk Judul 2");
+    rbTree.insert("Judul 3", "Konten untuk Judul 3");
+
+    // Mencari judul berdasarkan konten
+    String targetValue = "Konten untuk Judul 2";
+    String judulDitemukan = rbTree.getKeyByValue(targetValue);
+    if (judulDitemukan != null) {
+      System.out.println("Judul yang sesuai dengan konten: " + judulDitemukan);
+    } else {
+      System.out.println("Tidak ada judul yang sesuai dengan konten yang ditemukan.");
+    }
+
+    // Mencari konten berdasarkan judul
+    String targetJudul = "Judul 3";
+    String kontenDitemukan = rbTree.getValueByKey(targetJudul);
+    if (kontenDitemukan != null) {
+      System.out.println("Konten untuk Judul 3: " + kontenDitemukan);
+    } else {
+      System.out.println("Konten tidak ditemukan untuk judul yang diberikan.");
+    }
   }
 }

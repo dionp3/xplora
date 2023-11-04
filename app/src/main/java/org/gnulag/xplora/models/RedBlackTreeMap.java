@@ -9,17 +9,16 @@ class Node<K, V> {
   Node<K, V> parent;
   Node<K, V> left;
   Node<K, V> right;
-  int color;
+  boolean isRed;
 }
 
 public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
-  public static final int COUNT = 10;
   private Node<K, V> root;
   private Node<K, V> TNULL;
 
   public RedBlackTreeMap() {
     TNULL = new Node<K, V>();
-    TNULL.color = 0;
+    TNULL.isRed = false;
     TNULL.left = null;
     TNULL.right = null;
     root = TNULL;
@@ -73,47 +72,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     return searchTreeHelper(this.root, k);
   }
 
-  public Node<K, V> minimum(Node<K, V> node) {
-    while (node.left != TNULL) {
-      node = node.left;
-    }
-    return node;
-  }
-
-  public Node<K, V> maximum(Node<K, V> node) {
-    while (node.right != TNULL) {
-      node = node.right;
-    }
-    return node;
-  }
-
-  // public Node<K, V> successor(Node<K, V> x) {
-  //   if (x.right != TNULL) {
-  //     return minimum(x.right);
-  //   }
-  //
-  //   Node<K, V> y = x.parent;
-  //   while (y != TNULL && x == y.right) {
-  //     x = y;
-  //     y = y.parent;
-  //   }
-  //   return y;
-  // }
-  //
-  // public Node<K, V> predecessor(Node<K, V> x) {
-  //   if (x.left != TNULL) {
-  //     return maximum(x.left);
-  //   }
-  //
-  //   Node<K, V> y = x.parent;
-  //   while (y != TNULL && x == y.left) {
-  //     x = y;
-  //     y = y.parent;
-  //   }
-  //
-  //   return y;
-  // }
-
   public void insert(K key, V value) {
     Node<K, V> node = new Node<K, V>();
     node.parent = null;
@@ -121,7 +79,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     node.value = value;
     node.left = TNULL;
     node.right = TNULL;
-    node.color = 1;
+    node.isRed = true;
 
     Node<K, V> y = null;
     Node<K, V> x = this.root;
@@ -145,7 +103,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
     if (node.parent == null) {
-      node.color = 0;
+      node.isRed = false;
       return;
     }
 
@@ -195,38 +153,38 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
   // Balance the node after insertion
   private void fixInsert(Node<K, V> k) {
     Node<K, V> u;
-    while (k.parent.color == 1) {
+    while (k.parent.isRed == true) {
       if (k.parent == k.parent.parent.right) {
         u = k.parent.parent.left;
-        if (u.color == 1) {
-          u.color = 0;
-          k.parent.color = 0;
-          k.parent.parent.color = 1;
+        if (u.isRed == true) {
+          u.isRed = false;
+          k.parent.isRed = false;
+          k.parent.parent.isRed = true;
           k = k.parent.parent;
         } else {
           if (k == k.parent.left) {
             k = k.parent;
             rightRotate(k);
           }
-          k.parent.color = 0;
-          k.parent.parent.color = 1;
+          k.parent.isRed = false;
+          k.parent.parent.isRed = true;
           leftRotate(k.parent.parent);
         }
       } else {
         u = k.parent.parent.right;
 
-        if (u.color == 1) {
-          u.color = 0;
-          k.parent.color = 0;
-          k.parent.parent.color = 1;
+        if (u.isRed == true) {
+          u.isRed = false;
+          k.parent.isRed = false;
+          k.parent.parent.isRed = true;
           k = k.parent.parent;
         } else {
           if (k == k.parent.right) {
             k = k.parent;
             leftRotate(k);
           }
-          k.parent.color = 0;
-          k.parent.parent.color = 1;
+          k.parent.isRed = false;
+          k.parent.parent.isRed = true;
           rightRotate(k.parent.parent);
         }
       }
@@ -234,7 +192,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         break;
       }
     }
-    root.color = 0;
+    root.isRed = false;
   }
 
   // Pre order
@@ -324,16 +282,16 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
   private void printTreeHelper(Node<K, V> root, int space) {
     if (root != TNULL) {
-      space += COUNT;
+      space += 10;
       printTreeHelper(root.right, space);
 
       System.out.println();
-      for (int i = COUNT; i < space; i++) {
+      for (int i = 10; i < space; i++) {
         System.out.print(" ");
       }
 
       // Set text color based on the node's color
-      if (root.color == 1) {
+      if (root.isRed == true) {
         System.out.print("\u001B[31m"); // Set text color to red for RED nodes
       }
 
