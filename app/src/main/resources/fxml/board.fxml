@@ -10,34 +10,41 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox prefHeight="63.0" prefWidth="600.0">
-         <children>
-            <Pane prefHeight="63.0" prefWidth="101.0">
-               <children>
-                  <ImageView fitHeight="45.0" fitWidth="68.0" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </Pane>
-            <Pane prefHeight="63.0" prefWidth="373.0">
-               <children>
-                  <TextField layoutX="18.0" layoutY="14.0" prefHeight="36.0" prefWidth="324.0" promptText="Isi " />
-               </children>
-            </Pane>
-            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="126.0" text="Button" />
-         </children>
-      </HBox>
-      <ScrollPane prefHeight="339.0" prefWidth="600.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TextArea layoutY="2.0" prefHeight="44.0" prefWidth="583.0" text="enam puluh" />
-                  <TextArea layoutY="42.0" prefHeight="41.0" prefWidth="579.0" text="enam puluh adalah istilah yang sering digunakan pada bencong pinggir jalan yang menawarkan bingkisan berupa sutra dan akan dibawakan ke oyo" wrapText="true" />
-                  <TextArea layoutX="2.0" layoutY="130.0" prefHeight="34.0" prefWidth="579.0" text="enam puluh lima ribu adalah nilai mata uang rupiah di Indonesia yang ." wrapText="true" />
-                  <TextArea layoutX="2.0" layoutY="88.0" prefHeight="13.0" prefWidth="579.0" text="enam puluh lima ribu" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.9"
+  fx:controller="org.gnulag.xplora.controllers.Controller"
+  xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <HBox prefHeight="63.0" prefWidth="600.0">
+      <children>
+        <Pane prefHeight="63.0" prefWidth="101.0">
+          <children>
+            <ImageView fitHeight="45.0" fitWidth="68.0" layoutX="17.0" layoutY="9.0"
+              pickOnBounds="true" preserveRatio="true" />
+          </children>
+        </Pane>
+        <Pane prefHeight="63.0" prefWidth="373.0">
+          <children>
+            <TextField fx:id="inputTextField" layoutX="18.0" layoutY="14.0" prefHeight="36.0"
+              prefWidth="324.0"
+              promptText="Isi " />
+          </children>
+        </Pane>
+        <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="126.0" text="Tampil"
+          onAction="#showTextInTextArea" />
+      </children>
+    </HBox>
+    <ScrollPane prefHeight="339.0" prefWidth="600.0">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <VBox fx:id="textAreaContainer" layoutY="2.0" prefHeight="44.0" prefWidth="583.0">
+              <TextArea text="enam puluh" wrapText="true" />
+            </VBox>
+          </children>
+        </AnchorPane>
+      </content>
+    </ScrollPane>
+  </children>
 </VBox>
+

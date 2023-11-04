@@ -1,5 +1,6 @@
 package org.gnulag.xplora;
 
+import org.gnulag.xplora.controllers.Controller;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ public class App extends Application {
     try {
       FXMLLoader board = new FXMLLoader(App.class.getResource("/fxml/board.fxml"));
       Parent root = board.load();
+      Controller controller = board.getController();
       // Create a scene and set it on the stage
       Scene scene = new Scene(root);
       primaryStage.setScene(scene);
