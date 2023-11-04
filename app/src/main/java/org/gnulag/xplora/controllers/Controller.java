@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller {
   @FXML
@@ -17,23 +19,27 @@ public class Controller {
   private VBox textAreaContainer;
   @FXML
   private TextField inputTextField;
+  
+  private Map<String, String> data = new HashMap<>();
 
-  private final String[] textData = {
-        "Generator nomor acak",
-        "arti kata acak",
-        "pemilih nama acak",
-        "apa itu random",
-        "random boolean dalam binary",
-        "orang random yang tertangkap kamera"
-    };
+    public Controller() {
+        // Menambahkan data ke kamus
+        data.put("Generator nomor acak", "ini menghasilkan angka acak kriptografis yang cocok untuk sebagian ...");
+        data.put("arti kata acak", "acak 1 1 a tanpa pola; sebarang: responden kuis itu diambil secara --;");
+        data.put("pemilih nama acak", "dalam pilihan pemilu ini akan dipilih namanya secara acak ...");
+        data.put("apa itu random", "Dikutip dari Vocabulary, random adalah adjective atau kata sifat yang u ...");
+        data.put("random boolean dalam binary", "A few options: one-of [ true false ].  ...");
+        data.put("orang random yang tertangkap kamera", "Nah, sepuluh orang dibawah ini yang tertangkap kamera ...");
+    }
 
     public void showTextInTextArea() {
         String inputText = inputTextField.getText();
         textAreaContainer.getChildren().clear();
 
-        for (String text : textData) {
-            if (text.toLowerCase().contains(inputText.toLowerCase())) {
-                TextArea resultTextArea = new TextArea(text);
+        for (String key : data.keySet()) {
+            String value = data.get(key);
+            if (key.toLowerCase().contains(inputText.toLowerCase()) || value.toLowerCase().contains(inputText.toLowerCase())) {
+                TextArea resultTextArea = new TextArea("judul: " + key + "\nisi konten: " + value);
                 resultTextArea.setWrapText(true);
                 resultTextArea.setPrefWidth(400); // Sesuaikan lebar sesuai kebutuhan
                 textAreaContainer.getChildren().add(resultTextArea);
