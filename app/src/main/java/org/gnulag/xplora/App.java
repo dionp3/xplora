@@ -3,97 +3,80 @@
  */
 package org.gnulag.xplora;
 
-import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Random;
 import org.gnulag.xplora.models.RedBlackTreeMap;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+
+import org.gnulag.xplora.utils.JsonUtil;
 
 public class App {
-  public static void main(String[] args) {
-    RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
-    List<String> gimmickValues = Arrays.asList("acak", "kertas", "gunting", "batu");
+    public static void main(String[] args) {
+        RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+        List<String> gimmickValues = Arrays.asList("acak", "kertas", "gunting", "batu");
 
-    loadJsonData(rbTree, "/data.json");
+        JsonUtil.loadJsonData(rbTree, "/data.json");
 
-    String searchParam = "gunting";
-    List<String> combined = new ArrayList<>();
+        String searchParam = "gunting";
+        List<String> combined = new ArrayList<>();
 
-    if (gimmickValues.contains(searchParam)) {
-      String gimmickResult = specialGimmick(searchParam);
-      if (!gimmickResult.isEmpty()) {
-        combined.add(gimmickResult);
-      }
-    }
-
-    combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
-    combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
-
-    printResults(rbTree, combined);
-  }
-
-  private static void loadJsonData(RedBlackTreeMap<String, String> rbTree, String resourcePath) {
-    try (InputStream jsonStream = App.class.getResourceAsStream(resourcePath)) {
-      if (jsonStream != null) {
-        JSONArray jsonArray = new JSONArray(new JSONTokener(jsonStream));
-        for (int i = 0; i < jsonArray.length(); i++) {
-          JSONObject jsonObject = jsonArray.getJSONObject(i);
-          String key = jsonObject.keys().next();
-          String value = jsonObject.getString(key);
-          rbTree.insert(key, value);
+        if (gimmickValues.contains(searchParam)) {
+            String gimmickResult = specialGimmick(searchParam);
+            if (!gimmickResult.isEmpty()) {
+                combined.add(gimmickResult);
+            }
         }
-      } else {
-        System.err.println("Failed to load data.json. The resource is not found.");
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
-  private static void printResults(RedBlackTreeMap<String, String> rbTree, List<String> keys) {
-    for (String key : keys) {
-      System.out.println(key);
-      String value = rbTree.getValueByKey(key);
-      if (value != null) {
-        System.out.println(value);
-      }
-      System.out.println();
-    }
-  }
+        combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
+        combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
 
-  private static String specialGimmick(String gimmick) {
-    Random random = new Random();
-    String result = "";
-    switch (gimmick) {
-      case "acak":
-        for (int i = 0; i < 10; i++) {
-          int randomNumber = random.nextInt(100); // Adjust the range as needed
-          result += randomNumber;
-          if (i < 9) {
-            result += ", "; // Separate numbers with a comma and space
-          }
+        printResults(rbTree, combined);
+    }
+
+    private static void printResults(RedBlackTreeMap<String, String> rbTree, List<String> keys) {
+        for (String key : keys) {
+            System.out.println(key);
+            String value = rbTree.getValueByKey(key);
+            if (value != null) {
+                System.out.println(value);
+            }
+            System.out.println();
         }
-        return result;
-
-      case "kertas":
-      case "gunting":
-      case "batu":
-        List<String> options = Arrays.asList("kertas", "gunting", "batu");
-        String botChoice = options.get(random.nextInt(options.size()));
-        if (botChoice.equals(gimmick)) {
-          result += "Bot's choice: " + botChoice + ", Match result: Draw";
-        } else if ((gimmick.equals("kertas") && botChoice.equals("batu"))
-            || (gimmick.equals("batu") && botChoice.equals("gunting"))
-            || (gimmick.equals("gunting") && botChoice.equals("kertas"))) {
-          result += "Bot's choice: " + botChoice + ", Match result: Player wins";
-        } else {
-          result += "Bot's choice: " + botChoice + ", Match result: Bot wins";
-        }
-        return result;
-
-      default:
-        return "";
     }
-  }
+
+    private static String specialGimmick(String gimmick) {
+        Random random = new Random();
+        String result = "";
+        switch (gimmick) {
+            case "acak":
+                for (int i = 0; i < 10; i++) {
+                    int randomNumber = random.nextInt(100); // Adjust the range as needed
+                    result += randomNumber;
+                    if (i < 9) {
+                        result += ", "; // Separate numbers with a comma and space
+                    }
+                }
+                return result;
+
+            case "kertas":
+            case "gunting":
+            case "batu":
+                List<String> options = Arrays.asList("kertas", "gunting", "batu");
+                String botChoice = options.get(random.nextInt(options.size()));
+                if (botChoice.equals(gimmick)) {
+                    result += "Bot's choice: " + botChoice + ", Match result: Draw";
+                } else if ((gimmick.equals("kertas") && botChoice.equals("batu"))
+                        || (gimmick.equals("batu") && botChoice.equals("gunting"))
+                        || (gimmick.equals("gunting") && botChoice.equals("kertas"))) {
+                    result += "Bot's choice: " + botChoice + ", Match result: Player wins";
+                } else {
+                    result += "Bot's choice: " + botChoice + ", Match result: Bot wins";
+                }
+                return result;
+
+            default:
+                return "";
+        }
+    }
 }
