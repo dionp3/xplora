@@ -3,10 +3,8 @@
  */
 package org.gnulag.xplora;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.io.InputStream;
+import java.util.*;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,42 +15,48 @@ public class App {
     RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
     List<String> gimmickValues = Arrays.asList("acak", "kertas", "gunting", "batu");
 
-    try {
-      JSONTokener tokener = new JSONTokener(App.class.getResourceAsStream("/data.json"));
-      JSONArray jsonArray = new JSONArray(tokener);
-      for (int i = 0; i < jsonArray.length(); i++) {
-        JSONObject jsonObject = jsonArray.getJSONObject(i);
-        String key = jsonObject.keys().next();
-        String value = jsonObject.getString(key);
-        rbTree.insert(key, value);
+    loadJsonData(rbTree, "/data.json");
+
+    String searchParam = "gunting";
+    List<String> combined = new ArrayList<>();
+
+    if (gimmickValues.contains(searchParam)) {
+      String gimmickResult = specialGimmick(searchParam);
+      if (!gimmickResult.isEmpty()) {
+        combined.add(gimmickResult);
+      }
+    }
+
+    combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
+    combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
+
+    printResults(rbTree, combined);
+  }
+
+  private static void loadJsonData(RedBlackTreeMap<String, String> rbTree, String resourcePath) {
+    try (InputStream jsonStream = App.class.getResourceAsStream(resourcePath)) {
+      if (jsonStream != null) {
+        JSONArray jsonArray = new JSONArray(new JSONTokener(jsonStream));
+        for (int i = 0; i < jsonArray.length(); i++) {
+          JSONObject jsonObject = jsonArray.getJSONObject(i);
+          String key = jsonObject.keys().next();
+          String value = jsonObject.getString(key);
+          rbTree.insert(key, value);
+        }
+      } else {
+        System.err.println("Failed to load data.json. The resource is not found.");
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
 
-    String searchParam = "gunting";
-    List<String> matchingTitle = rbTree.searchKeysByContainingKey(searchParam);
-    List<String> matchingContent = rbTree.searchKeysByContainingValue(searchParam);
-    List<String> combined = new ArrayList<>();
-    if (gimmickValues.contains(searchParam)) {
-      String gimmickResult = specialGimmick(searchParam);
-      if (!gimmickResult.equals("")) {
-        combined.add(gimmickResult);
-      }
-    }
-    for (String judul : matchingTitle) {
-      combined.add(judul);
-    }
-    for (String konten : matchingContent) {
-      if (!combined.contains(konten)) {
-        combined.add(konten);
-      }
-    }
-
-    for (String judul : combined) {
-      System.out.println(judul);
-      if (rbTree.getValueByKey(judul) != null) {
-        System.out.println(rbTree.getValueByKey(judul));
+  private static void printResults(RedBlackTreeMap<String, String> rbTree, List<String> keys) {
+    for (String key : keys) {
+      System.out.println(key);
+      String value = rbTree.getValueByKey(key);
+      if (value != null) {
+        System.out.println(value);
       }
       System.out.println();
     }
@@ -66,8 +70,7 @@ public class App {
         for (int i = 0; i < 10; i++) {
           int randomNumber = random.nextInt(100); // Adjust the range as needed
           result += randomNumber;
-
-          if (i < 10 - 1) {
+          if (i < 9) {
             result += ", "; // Separate numbers with a comma and space
           }
         }
