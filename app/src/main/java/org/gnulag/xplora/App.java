@@ -3,12 +3,26 @@
  */
 package org.gnulag.xplora;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.gnulag.xplora.models.RedBlackTreeMap;
+
+import org.gnulag.xplora.utils.JsonUtil;
+import org.gnulag.xplora.utils.PrintsUtil;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+    public static void main(String[] args) {
+        RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+
+        JsonUtil.loadJsonData(rbTree, "/data.json");
+
+        String searchParam = "acak";
+        List<String> combined = new ArrayList<>();
+
+        combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
+        combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
+
+        PrintsUtil.printResults(rbTree, combined);
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
 }
