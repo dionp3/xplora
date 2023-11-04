@@ -10,6 +10,7 @@ import java.util.Random;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 
 import org.gnulag.xplora.utils.JsonUtil;
+import org.gnulag.xplora.utils.PrintsUtil;
 
 public class App {
     public static void main(String[] args) {
@@ -31,18 +32,7 @@ public class App {
         combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
         combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
 
-        printResults(rbTree, combined);
-    }
-
-    private static void printResults(RedBlackTreeMap<String, String> rbTree, List<String> keys) {
-        for (String key : keys) {
-            System.out.println(key);
-            String value = rbTree.getValueByKey(key);
-            if (value != null) {
-                System.out.println(value);
-            }
-            System.out.println();
-        }
+        PrintsUtil.printResults(rbTree, combined);
     }
 
     private static String specialGimmick(String gimmick) {

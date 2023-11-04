@@ -1,7 +1,9 @@
 package org.gnulag.xplora.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 class Node<K, V> {
     K key;
@@ -23,6 +25,8 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         TNULL.right = null;
         root = TNULL;
     }
+
+    private List<String> gimmickList = Arrays.asList("random", "acak", "calculator", "kalkulator", "suit");
 
     public Node<K, V> getRoot() {
         return this.root;
@@ -324,6 +328,30 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         }
     }
 
+    public void checkGimmick(Node<K, V> node) {
+        String key = node.key.toString().toLowerCase();
+        String value = node.value.toString().toLowerCase();
+
+        if (key.contains("random") || value.contains("random") || key.contains("acak") || value.contains("acak")) {
+            randomGimmick();
+        }
+
+        if (key.contains("kalkulator") || value.contains("kalkulator") || key.contains("calculator")
+                || value.contains("calculator")) {
+            calculatorGimmick();
+        }
+    }
+
+    public void randomGimmick() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(100);
+        System.out.println("Random number: " + randomNumber);
+
+    }
+
+    public void calculatorGimmick() {
+        // TODO
+    }
     // temp function
 
     // public void deleteNode(K key) {
