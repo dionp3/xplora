@@ -41,8 +41,6 @@ public class App {
     List<String> judulDitemukan = rbTree.searchKeysByContainingKey(targetValue);
     List<String> kontenDitemukan = rbTree.searchKeysByContainingValue(targetValue);
     List<String> combined = new ArrayList<String>(judulDitemukan);
-    System.out.println("judul: " + judulDitemukan);
-    System.out.println("konten: " + kontenDitemukan);
     for (String konten : kontenDitemukan) {
       if (!combined.contains(konten)) {
         combined.add(konten);
@@ -50,16 +48,7 @@ public class App {
     }
     for (String judul : combined) {
       System.out.println("judul: " + judul);
+      System.out.println("konten: " + rbTree.getValueByKey(judul) + "\n");
     }
-    // Mencari konten berdasarkan judul
-    // String targetJudul = "acak";
-    // List<String> kontenDitemukan =
-    // rbTree.searchValuesByContainingKey(targetJudul); if (kontenDitemukan !=
-    // null) {
-    //   System.out.println("konten: " + kontenDitemukan);
-    // } else {
-    //   System.out.println("Konten tidak ditemukan untuk judul yang
-    //   diberikan.");
-    // }
   }
 }
