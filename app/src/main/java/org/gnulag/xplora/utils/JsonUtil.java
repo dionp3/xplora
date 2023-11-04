@@ -10,6 +10,7 @@ import java.io.InputStream;
 /**
  * JsonUtil
  */
+
 public class JsonUtil {
     public static void loadJsonData(RedBlackTreeMap<String, String> rbTree, String resourcePath) {
         try (InputStream jsonStream = JsonUtil.class.getResourceAsStream(resourcePath)) {

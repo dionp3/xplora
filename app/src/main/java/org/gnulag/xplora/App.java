@@ -5,8 +5,6 @@ package org.gnulag.xplora;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.util.Random;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 
 import org.gnulag.xplora.utils.JsonUtil;
@@ -15,19 +13,11 @@ import org.gnulag.xplora.utils.PrintsUtil;
 public class App {
     public static void main(String[] args) {
         RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
-        List<String> gimmickValues = Arrays.asList("acak", "kertas", "gunting", "batu");
 
         JsonUtil.loadJsonData(rbTree, "/data.json");
 
-        String searchParam = "gunting";
+        String searchParam = "acak";
         List<String> combined = new ArrayList<>();
-
-        if (gimmickValues.contains(searchParam)) {
-            String gimmickResult = specialGimmick(searchParam);
-            if (!gimmickResult.isEmpty()) {
-                combined.add(gimmickResult);
-            }
-        }
 
         combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
         combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
@@ -35,38 +25,4 @@ public class App {
         PrintsUtil.printResults(rbTree, combined);
     }
 
-    private static String specialGimmick(String gimmick) {
-        Random random = new Random();
-        String result = "";
-        switch (gimmick) {
-            case "acak":
-                for (int i = 0; i < 10; i++) {
-                    int randomNumber = random.nextInt(100); // Adjust the range as needed
-                    result += randomNumber;
-                    if (i < 9) {
-                        result += ", "; // Separate numbers with a comma and space
-                    }
-                }
-                return result;
-
-            case "kertas":
-            case "gunting":
-            case "batu":
-                List<String> options = Arrays.asList("kertas", "gunting", "batu");
-                String botChoice = options.get(random.nextInt(options.size()));
-                if (botChoice.equals(gimmick)) {
-                    result += "Bot's choice: " + botChoice + ", Match result: Draw";
-                } else if ((gimmick.equals("kertas") && botChoice.equals("batu"))
-                        || (gimmick.equals("batu") && botChoice.equals("gunting"))
-                        || (gimmick.equals("gunting") && botChoice.equals("kertas"))) {
-                    result += "Bot's choice: " + botChoice + ", Match result: Player wins";
-                } else {
-                    result += "Bot's choice: " + botChoice + ", Match result: Bot wins";
-                }
-                return result;
-
-            default:
-                return "";
-        }
-    }
 }

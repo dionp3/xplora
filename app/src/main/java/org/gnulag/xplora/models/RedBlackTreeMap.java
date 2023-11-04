@@ -272,6 +272,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
         if (node.value.toString().contains(targetValue)) {
             matchingKeys.add(node.key);
+            checkGimmick(node);
         }
 
         searchKeysByContainingValueHelper(node.left, targetValue, matchingKeys);
@@ -286,6 +287,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
         if (node.key.toString().contains(targetKeyString)) {
             matchingValues.add(node.value);
+            checkGimmick(node);
         }
 
         searchValuesByContainingKeyHelper(node.left, targetKeyString, matchingValues);
@@ -346,11 +348,11 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         Random random = new Random();
         int randomNumber = random.nextInt(100);
         System.out.println("Random number: " + randomNumber);
-
     }
 
     public void calculatorGimmick() {
         // TODO
+        System.out.println("Belum jadi bang");
     }
     // temp function
 
