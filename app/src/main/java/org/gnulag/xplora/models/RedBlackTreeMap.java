@@ -64,6 +64,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
         if (node.key.toString().contains(targetKeySubstring)) {
             matchingKeys.add(node.key);
+            checkGimmick(node);
         }
 
         searchKeysByContainingKeyHelper(node.left, targetKeySubstring, matchingKeys);
