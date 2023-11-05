@@ -13,30 +13,30 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="109.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/stylesBoard.css">
+      <Pane prefHeight="96.0" prefWidth="676.0">
          <children>
-            <Pane prefHeight="85.0" prefWidth="226.0">
+            <ImageView fitHeight="286.0" fitWidth="305.0" layoutX="195.0" layoutY="-95.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../css/image/icon2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <HBox prefHeight="72.0" prefWidth="676.0" styleClass="root" stylesheets="@../css/stylesBoard.css">
+         <children>
+            <Pane prefHeight="32.0" prefWidth="416.0">
                <children>
-                  <ImageView fitHeight="179.0" fitWidth="217.0" layoutX="-4.0" layoutY="-55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../css/image/icon2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane prefHeight="83.0" prefWidth="373.0">
-               <children>
-                  <TextField layoutX="14.0" layoutY="16.0" prefHeight="36.0" prefWidth="291.0" promptText="Isi " />
+                  <TextField layoutX="69.0" prefHeight="36.0" prefWidth="333.0" promptText="Isi " />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button alignment="CENTER" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" stylesheets="@../css/stylesBoard.css" text="Search" />
+                  <Button alignment="CENTER" layoutX="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" stylesheets="@../css/stylesBoard.css" text="Search" />
                </children>
             </Pane>
          </children>
       </HBox>
-      <ScrollPane prefHeight="421.0" prefWidth="476.0">
+      <ScrollPane prefHeight="256.0" prefWidth="676.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
