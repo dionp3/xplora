@@ -297,8 +297,8 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         searchValuesByContainingKeyHelper(node.right, targetKeyString, matchingValues);
     }
 
-    public List<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
-        List<String> matchingKeyValues = new ArrayList<>();
+    public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
+        ArrayList<String> matchingKeyValues = new ArrayList<>();
         searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
         isGimmickDisplayed = true;
         return matchingKeyValues;
@@ -320,8 +320,8 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         searchKeysAndValuesByContainingKeyHelper(node.right, targetKeySubstring, matchingKeyValues);
     }
 
-    public List<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
-        List<String> matchingKeyValues = new ArrayList<>();
+    public ArrayList<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
+        ArrayList<String> matchingKeyValues = new ArrayList<>();
         searchKeysAndValuesByContainingValueHelper(root, targetValueSubstring, matchingKeyValues);
         isGimmickDisplayed = true;
         return matchingKeyValues;

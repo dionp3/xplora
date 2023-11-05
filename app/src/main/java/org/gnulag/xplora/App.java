@@ -13,15 +13,19 @@ import org.gnulag.xplora.utils.PrintsUtil;
 public class App {
     public static void main(String[] args) {
         RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+        List<String> combinedOutput = new ArrayList<>();
 
         JsonUtil.loadJsonData(rbTree, "/data.json");
 
         String searchParam = "acak";
 
-        List<String> valueSearchKeyAndValuesByContainingKey = rbTree.searchKeysAndValuesByContainingKey(searchParam);
-        List<String> valueSearchKeyAndValuesByContainingValue = rbTree
+        ArrayList<String> valueSearchKeyAndValuesByContainingKey = rbTree
+                .searchKeysAndValuesByContainingKey(searchParam);
+        ArrayList<String> valueSearchKeyAndValuesByContainingValue = rbTree
                 .searchKeysAndValuesByContainingValue(searchParam);
-        System.out.println(valueSearchKeyAndValuesByContainingKey);
-        System.out.println(valueSearchKeyAndValuesByContainingValue);
+        combinedOutput.addAll(valueSearchKeyAndValuesByContainingKey);
+        combinedOutput.addAll(valueSearchKeyAndValuesByContainingValue);
+
+        System.out.println(combinedOutput);
     }
 }
