@@ -18,10 +18,11 @@ public class App {
 
         String searchParam = "acak";
 
-        List<String> valuesOfValuesByContainingKey = rbTree.searchValuesByContainingKey(searchParam);
-        List<String> valuesOfKeysByContainingKey = rbTree.searchKeysByContainingKey(searchParam);
-        System.out.println(valuesOfValuesByContainingKey);
-        System.out.println(valuesOfKeysByContainingKey);
+        List<String> valueSearchKeyAndValuesByContainingKey = rbTree.searchKeysAndValuesByContainingKey(searchParam);
+        List<String> valueSearchKeyAndValuesByContainingValue = rbTree
+                .searchKeysAndValuesByContainingValue(searchParam);
+        System.out.println(valueSearchKeyAndValuesByContainingKey);
+        System.out.println(valueSearchKeyAndValuesByContainingValue);
     }
 
 }

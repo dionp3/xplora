@@ -297,6 +297,52 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         searchValuesByContainingKeyHelper(node.right, targetKeyString, matchingValues);
     }
 
+    public List<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
+        List<String> matchingKeyValues = new ArrayList<>();
+        searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
+        isGimmickDisplayed = true;
+        return matchingKeyValues;
+    }
+
+    private void searchKeysAndValuesByContainingKeyHelper(
+            Node<K, V> node, String targetKeySubstring, List<String> matchingKeyValues) {
+        if (node == TNULL) {
+            return;
+        }
+
+        if (node.key.toString().contains(targetKeySubstring)) {
+            String keyValue = node.key + "\n" + node.value;
+            matchingKeyValues.add(keyValue);
+            checkGimmick(node);
+        }
+
+        searchKeysAndValuesByContainingKeyHelper(node.left, targetKeySubstring, matchingKeyValues);
+        searchKeysAndValuesByContainingKeyHelper(node.right, targetKeySubstring, matchingKeyValues);
+    }
+
+    public List<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
+        List<String> matchingKeyValues = new ArrayList<>();
+        searchKeysAndValuesByContainingValueHelper(root, targetValueSubstring, matchingKeyValues);
+        isGimmickDisplayed = true;
+        return matchingKeyValues;
+    }
+
+    private void searchKeysAndValuesByContainingValueHelper(
+            Node<K, V> node, String targetValueSubstring, List<String> matchingKeyValues) {
+        if (node == TNULL) {
+            return;
+        }
+
+        if (node.value.toString().contains(targetValueSubstring)) {
+            String keyValue = node.key + "\n" + node.value;
+            matchingKeyValues.add(keyValue);
+            checkGimmick(node);
+        }
+
+        searchKeysAndValuesByContainingValueHelper(node.left, targetValueSubstring, matchingKeyValues);
+        searchKeysAndValuesByContainingValueHelper(node.right, targetValueSubstring, matchingKeyValues);
+    }
+
     // Search the tree
     private Node<K, V> searchTreeHelper(Node<K, V> node, K key) {
         if (node == TNULL || key.equals(node.key)) {
