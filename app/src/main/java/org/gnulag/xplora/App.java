@@ -3,33 +3,26 @@
  */
 package org.gnulag.xplora;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 
+import org.gnulag.xplora.utils.JsonUtil;
+import org.gnulag.xplora.utils.PrintsUtil;
+
 public class App {
-  public static void main(String[] args) {
-    RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+    public static void main(String[] args) {
+        RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
 
-    // Menambahkan data ke search engine
-    rbTree.insert("Judul 1", "Konten untuk Judul 1");
-    rbTree.insert("Judul 2", "Konten untuk Judul 2");
-    rbTree.insert("Judul 3", "Konten untuk Judul 3");
+        JsonUtil.loadJsonData(rbTree, "/data.json");
 
-    // Mencari judul berdasarkan konten
-    String targetValue = "Konten untuk Judul 2";
-    String judulDitemukan = rbTree.getKeyByValue(targetValue);
-    if (judulDitemukan != null) {
-      System.out.println("Judul yang sesuai dengan konten: " + judulDitemukan);
-    } else {
-      System.out.println("Tidak ada judul yang sesuai dengan konten yang ditemukan.");
+        String searchParam = "acak";
+        List<String> combined = new ArrayList<>();
+
+        combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
+        combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
+
+        PrintsUtil.printResults(rbTree, combined);
     }
 
-    // Mencari konten berdasarkan judul
-    String targetJudul = "Judul 3";
-    String kontenDitemukan = rbTree.getValueByKey(targetJudul);
-    if (kontenDitemukan != null) {
-      System.out.println("Konten untuk Judul 3: " + kontenDitemukan);
-    } else {
-      System.out.println("Konten tidak ditemukan untuk judul yang diberikan.");
-    }
-  }
 }

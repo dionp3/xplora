@@ -29,6 +29,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
+    implementation 'org.json:json:20220320'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
