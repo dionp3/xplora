@@ -7,13 +7,15 @@ import java.util.ResourceBundle;
 import org.gnulag.xplora.utils.PrintsUtil;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 import org.gnulag.xplora.utils.JsonUtil;
-import org.gnulag.xplora.utils.PrintsUtil;
 
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -23,16 +25,19 @@ public class Controller implements Initializable {
     private ListView<String> listView;
 
     @FXML
-    private Button backButton;
-
-    @FXML
     private TextField searchBar;
 
     @FXML
-    private Button searchButton;
+    private Label searchButton;
 
     @FXML
     private AnchorPane slider;
+
+    @FXML
+    private Label backButton;
+
+    @FXML
+    private TextArea description;
 
     private RedBlackTreeMap<String, String> rbTree;
 
@@ -41,23 +46,47 @@ public class Controller implements Initializable {
         JsonUtil.loadJsonData(rbTree, "/data.json");
     }
 
-    @FXML
-    void searchKeyOrValue(ActionEvent event) {
-        String searchParam = searchBar.getText();
-        List<String> searchResult = PrintsUtil.printCombinedOutput(rbTree, searchParam);
-        listView.getItems().clear();
-        listView.getItems().addAll(searchResult);
-    }
-
-    @FXML
-    void closeSideBar(ActionEvent event) {
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'initialize'");
+        searchButton.setOnMouseClicked(event -> {
+            String searchParam = searchBar.getText();
+            List<String> searchResult = PrintsUtil.printCombinedOutput(rbTree, searchParam);
+            listView.getItems().clear();
+            listView.getItems().addAll(searchResult);
+        });
+
+        slider.setTranslateX(400);
+        listView.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.5));
+            slide.setNode(slider);
+
+            slide.setToX(0);
+            slide.play();
+
+            slider.setTranslateX(400);
+
+            slide.setOnFinished((ActionEvent e) -> {
+                listView.setVisible(true);
+                backButton.setVisible(true);
+            });
+        });
+
+        backButton.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.5));
+            slide.setNode(slider);
+
+            slide.setToX(400);
+            slide.play();
+
+            slider.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e) -> {
+                listView.setVisible(true);
+                backButton.setVisible(false);
+            });
+        });
     }
 
 }
