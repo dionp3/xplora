@@ -23,12 +23,13 @@ public class App { // Initialize your RedBlackTreeMap
     private static RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
 
     public static void main(String[] args) {
+        // Functions to call to test >>
         JsonUtil.loadJsonData(rbTree, "/data.json");
         ArrayList<String> valueKVsByKey = rbTree.searchKeysAndValuesByContainingKey("acak");
         ArrayList<String> valueKVsByValue = rbTree.searchKeysAndValuesByContainingValue("random");
         ArrayList<String> combinedResults = PrintsUtil.combineResults(valueKVsByKey, valueKVsByValue);
         System.out.println(combinedResults);
-
+        // End here
     }
 
 }
