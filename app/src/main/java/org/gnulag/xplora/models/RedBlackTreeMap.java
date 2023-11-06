@@ -1,17 +1,16 @@
 package org.gnulag.xplora.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 class Node<K, V> {
-    K key;
-    V value;
-    Node<K, V> parent;
-    Node<K, V> left;
-    Node<K, V> right;
-    boolean isRed;
+    public K key;
+    public V value;
+    public Node<K, V> parent;
+    public Node<K, V> left;
+    public Node<K, V> right;
+    public boolean isRed;
 }
 
 public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
@@ -26,8 +25,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         root = TNULL;
     }
 
-    private boolean isGimmickDisplayed = false;
-
     public Node<K, V> getRoot() {
         return this.root;
     }
@@ -36,48 +33,12 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return getKeyByValueHelper(root, value);
     }
 
-    public List<K> searchKeysByContainingValue(String targetValue) {
-        List<K> matchingKeys = new ArrayList<>();
-        isGimmickDisplayed = false;
-        searchKeysByContainingValueHelper(root, targetValue, matchingKeys);
-        return matchingKeys;
-    }
-
     public V getValueByKey(K key) {
         Node<K, V> node = searchTreeHelper(this.root, key);
         if (node != TNULL) {
             return node.value;
         }
         return null;
-    }
-
-    public List<K> searchKeysByContainingKey(String targetKeySubstring) {
-        List<K> matchingKeys = new ArrayList<>();
-        isGimmickDisplayed = false;
-        searchKeysByContainingKeyHelper(root, targetKeySubstring, matchingKeys);
-        return matchingKeys;
-    }
-
-    private void searchKeysByContainingKeyHelper(
-            Node<K, V> node, String targetKeySubstring, List<K> matchingKeys) {
-        if (node == TNULL) {
-            return;
-        }
-
-        if (node.key.toString().contains(targetKeySubstring)) {
-            matchingKeys.add(node.key);
-            checkGimmick(node);
-        }
-
-        searchKeysByContainingKeyHelper(node.left, targetKeySubstring, matchingKeys);
-        searchKeysByContainingKeyHelper(node.right, targetKeySubstring, matchingKeys);
-    }
-
-    public List<V> searchValuesByContainingKey(String targetKeyString) {
-        List<V> matchingValues = new ArrayList<>();
-        isGimmickDisplayed = false;
-        searchValuesByContainingKeyHelper(root, targetKeyString, matchingValues);
-        return matchingValues;
     }
 
     public void printTree() {
@@ -140,6 +101,18 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         }
 
         fixInsert(node);
+    }
+
+    public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
+        ArrayList<String> matchingKeyValues = new ArrayList<>();
+        searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
+        return matchingKeyValues;
+    }
+
+    public ArrayList<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
+        ArrayList<String> matchingKeyValues = new ArrayList<>();
+        searchKeysAndValuesByContainingValueHelper(root, targetValueSubstring, matchingKeyValues);
+        return matchingKeyValues;
     }
 
     private void leftRotate(Node<K, V> x) {
@@ -268,34 +241,34 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return rightResult;
     }
 
-    private void searchKeysByContainingValueHelper(
-            Node<K, V> node, String targetValue, List<K> matchingKeys) {
+    private void searchKeysAndValuesByContainingKeyHelper(
+            Node<K, V> node, String targetKeySubstring, List<String> matchingKeyValues) {
         if (node == TNULL) {
             return;
         }
 
-        if (node.value.toString().contains(targetValue)) {
-            matchingKeys.add(node.key);
-            checkGimmick(node);
+        if (node.key.toString().contains(targetKeySubstring)) {
+            String keyValue = node.key + "\n" + node.value;
+            matchingKeyValues.add(keyValue);
         }
 
-        searchKeysByContainingValueHelper(node.left, targetValue, matchingKeys);
-        searchKeysByContainingValueHelper(node.right, targetValue, matchingKeys);
+        searchKeysAndValuesByContainingKeyHelper(node.left, targetKeySubstring, matchingKeyValues);
+        searchKeysAndValuesByContainingKeyHelper(node.right, targetKeySubstring, matchingKeyValues);
     }
 
-    private void searchValuesByContainingKeyHelper(
-            Node<K, V> node, String targetKeyString, List<V> matchingValues) {
+    private void searchKeysAndValuesByContainingValueHelper(
+            Node<K, V> node, String targetValueSubstring, List<String> matchingKeyValues) {
         if (node == TNULL) {
             return;
         }
 
-        if (node.key.toString().contains(targetKeyString)) {
-            matchingValues.add(node.value);
-            checkGimmick(node);
+        if (node.value.toString().contains(targetValueSubstring)) {
+            String keyValue = node.key + "\n" + node.value;
+            matchingKeyValues.add(keyValue);
         }
 
-        searchValuesByContainingKeyHelper(node.left, targetKeyString, matchingValues);
-        searchValuesByContainingKeyHelper(node.right, targetKeyString, matchingValues);
+        searchKeysAndValuesByContainingValueHelper(node.left, targetValueSubstring, matchingKeyValues);
+        searchKeysAndValuesByContainingValueHelper(node.right, targetValueSubstring, matchingKeyValues);
     }
 
     // Search the tree
@@ -334,202 +307,170 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         }
     }
 
-    public void checkGimmick(Node<K, V> node) {
-        String key = node.key.toString().toLowerCase();
-        String value = node.value.toString().toLowerCase();
+    public void deleteNode(K key) {
+        deleteNodeHelper(this.root, key);
+    }
 
-        if (key.contains("random") || value.contains("random") || key.contains("acak") || value.contains("acak")) {
-            if (!isGimmickDisplayed) {
-                randomGimmick();
-                isGimmickDisplayed = true;
+    // Balance the tree after deletion of a node
+    private void fixDelete(Node<K, V> x) {
+        Node<K, V> s;
+        while (x != root && x.isRed == false) {
+            if (x == x.parent.left) {
+                s = x.parent.right;
+                if (s.isRed == true) {
+                    s.isRed = false;
+                    x.parent.isRed = true;
+                    leftRotate(x.parent);
+                    s = x.parent.right;
+                }
+
+                if (s.left.isRed == false && s.right.isRed == false) {
+                    s.isRed = true;
+                    x = x.parent;
+                } else {
+                    if (s.right.isRed == false) {
+                        s.left.isRed = false;
+                        s.isRed = true;
+                        rightRotate(s);
+                        s = x.parent.right;
+                    }
+
+                    s.isRed = x.parent.isRed;
+                    x.parent.isRed = false;
+                    s.right.isRed = false;
+                    leftRotate(x.parent);
+                    x = root;
+                }
+            } else {
+                s = x.parent.left;
+                if (s.isRed == true) {
+                    s.isRed = false;
+                    x.parent.isRed = true;
+                    rightRotate(x.parent);
+                    s = x.parent.left;
+                }
+
+                if (s.right.isRed == false && s.right.isRed == false) {
+                    s.isRed = true;
+                    x = x.parent;
+                } else {
+                    if (s.left.isRed == false) {
+                        s.right.isRed = false;
+                        s.isRed = true;
+                        leftRotate(s);
+                        s = x.parent.left;
+                    }
+
+                    s.isRed = x.parent.isRed;
+                    x.parent.isRed = false;
+                    s.left.isRed = false;
+                    rightRotate(x.parent);
+                    x = root;
+                }
+            }
+        }
+        x.isRed = false;
+    }
+
+    private void rbTransplant(Node<K, V> u, Node<K, V> v) {
+        if (u.parent == null) {
+            root = v;
+        } else if (u == u.parent.left) {
+            u.parent.left = v;
+        } else {
+            u.parent.right = v;
+        }
+        v.parent = u.parent;
+    }
+
+    private void deleteNodeHelper(Node<K, V> node, K key) {
+        Node<K, V> z = TNULL;
+        Node<K, V> x, y;
+        while (node != TNULL) {
+            if (node.key.equals(key)) {
+                z = node;
+            }
+
+            if (node.key.compareTo(key) < 0) {
+                node = node.right;
+            } else {
+                node = node.left;
             }
         }
 
-        if (key.contains("kalkulator") || value.contains("kalkulator") || key.contains("calculator")
-                || value.contains("calculator")) {
-            if (!isGimmickDisplayed) {
-                calculatorGimmick();
-                isGimmickDisplayed = true;
+        if (z == TNULL) {
+            System.out.println("Couldn't find key in the tree");
+            return;
+        }
+
+        y = z;
+        boolean yOriginalColor = y.isRed;
+        if (z.left == TNULL) {
+            x = z.right;
+            rbTransplant(z, z.right);
+        } else if (z.right == TNULL) {
+            x = z.left;
+            rbTransplant(z, z.left);
+        } else {
+            y = minimum(z.right);
+            yOriginalColor = y.isRed;
+            x = y.right;
+            if (y.parent == z) {
+                x.parent = y;
+            } else {
+                rbTransplant(y, y.right);
+                y.right = z.right;
+                y.right.parent = y;
             }
+
+            rbTransplant(z, y);
+            y.left = z.left;
+            y.left.parent = y;
+            y.isRed = z.isRed;
+        }
+        if (yOriginalColor == false) {
+            fixDelete(x);
         }
     }
 
-    public void randomGimmick() {
-        Random random = new Random();
-        int randomNumber = random.nextInt(100);
-        System.out.println("Random number: " + randomNumber);
+    public Node<K, V> minimum(Node<K, V> node) {
+        while (node.left != TNULL) {
+            node = node.left;
+        }
+        return node;
     }
 
-    public void calculatorGimmick() {
-        // TODO
-        System.out.println("Belum jadi bang");
+    public Node<K, V> maximum(Node<K, V> node) {
+        while (node.right != TNULL) {
+            node = node.right;
+        }
+        return node;
     }
-    // temp function
 
-    // public void deleteNode(K key) {
-    // deleteNodeHelper(this.root, key);
-    // }
-    //
-    // // Balance the tree after deletion of a node
-    // private void fixDelete(Node<K, V> x) {
-    // Node<K, V> s;
-    // while (x != root && x.isRed == false) {
-    // if (x == x.parent.left) {
-    // s = x.parent.right;
-    // if (s.isRed == true) {
-    // s.isRed = false;
-    // x.parent.isRed = true;
-    // leftRotate(x.parent);
-    // s = x.parent.right;
-    // }
-    //
-    // if (s.left.isRed == false && s.right.isRed == false) {
-    // s.isRed = true;
-    // x = x.parent;
-    // } else {
-    // if (s.right.isRed == false) {
-    // s.left.isRed = false;
-    // s.isRed = true;
-    // rightRotate(s);
-    // s = x.parent.right;
-    // }
-    //
-    // s.isRed = x.parent.isRed;
-    // x.parent.isRed = false;
-    // s.right.isRed = false;
-    // leftRotate(x.parent);
-    // x = root;
-    // }
-    // } else {
-    // s = x.parent.left;
-    // if (s.isRed == true) {
-    // s.isRed = false;
-    // x.parent.isRed = true;
-    // rightRotate(x.parent);
-    // s = x.parent.left;
-    // }
-    //
-    // if (s.right.isRed == false && s.right.isRed == false) {
-    // s.isRed = true;
-    // x = x.parent;
-    // } else {
-    // if (s.left.isRed == false) {
-    // s.right.isRed = false;
-    // s.isRed = true;
-    // leftRotate(s);
-    // s = x.parent.left;
-    // }
-    //
-    // s.isRed = x.parent.isRed;
-    // x.parent.isRed = false;
-    // s.left.isRed = false;
-    // rightRotate(x.parent);
-    // x = root;
-    // }
-    // }
-    // }
-    // x.isRed = false;
-    // }
-    //
-    // private void rbTransplant(Node<K, V> u, Node<K, V> v) {
-    // if (u.parent == null) {
-    // root = v;
-    // } else if (u == u.parent.left) {
-    // u.parent.left = v;
-    // } else {
-    // u.parent.right = v;
-    // }
-    // v.parent = u.parent;
-    // }
-    //
-    // private void deleteNodeHelper(Node<K, V> node, K key) {
-    // Node<K, V> z = TNULL;
-    // Node<K, V> x, y;
-    // while (node != TNULL) {
-    // if (node.key.equals(key)) {
-    // z = node;
-    // }
-    //
-    // if (node.key.compareTo(key) < 0) {
-    // node = node.right;
-    // } else {
-    // node = node.left;
-    // }
-    // }
-    //
-    // if (z == TNULL) {
-    // System.out.println("Couldn't find key in the tree");
-    // return;
-    // }
-    //
-    // y = z;
-    // boolean yOriginalColor = y.isRed;
-    // if (z.left == TNULL) {
-    // x = z.right;
-    // rbTransplant(z, z.right);
-    // } else if (z.right == TNULL) {
-    // x = z.left;
-    // rbTransplant(z, z.left);
-    // } else {
-    // y = minimum(z.right);
-    // yOriginalColor = y.isRed;
-    // x = y.right;
-    // if (y.parent == z) {
-    // x.parent = y;
-    // } else {
-    // rbTransplant(y, y.right);
-    // y.right = z.right;
-    // y.right.parent = y;
-    // }
-    //
-    // rbTransplant(z, y);
-    // y.left = z.left;
-    // y.left.parent = y;
-    // y.isRed = z.isRed;
-    // }
-    // if (yOriginalColor == false) {
-    // fixDelete(x);
-    // }
-    // }
-    //
-    // public Node<K, V> minimum(Node<K, V> node) {
-    // while (node.left != TNULL) {
-    // node = node.left;
-    // }
-    // return node;
-    // }
-    //
-    // public Node<K, V> maximum(Node<K, V> node) {
-    // while (node.right != TNULL) {
-    // node = node.right;
-    // }
-    // return node;
-    // }
-    //
-    // public Node<K, V> successor(Node<K, V> x) {
-    // if (x.right != TNULL) {
-    // return minimum(x.right);
-    // }
-    //
-    // Node<K, V> y = x.parent;
-    // while (y != TNULL && x == y.right) {
-    // x = y;
-    // y = y.parent;
-    // }
-    // return y;
-    // }
-    //
-    // public Node<K, V> predecessor(Node<K, V> x) {
-    // if (x.left != TNULL) {
-    // return maximum(x.left);
-    // }
-    //
-    // Node<K, V> y = x.parent;
-    // while (y != TNULL && x == y.left) {
-    // x = y;
-    // y = y.parent;
-    // }
-    //
-    // return y;
-    // }
+    public Node<K, V> successor(Node<K, V> x) {
+        if (x.right != TNULL) {
+            return minimum(x.right);
+        }
+
+        Node<K, V> y = x.parent;
+        while (y != TNULL && x == y.right) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
+
+    public Node<K, V> predecessor(Node<K, V> x) {
+        if (x.left != TNULL) {
+            return maximum(x.left);
+        }
+
+        Node<K, V> y = x.parent;
+        while (y != TNULL && x == y.left) {
+            x = y;
+            y = y.parent;
+        }
+
+        return y;
+    }
 }
