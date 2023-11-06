@@ -17,8 +17,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     private Node<K, V> root;
     private Node<K, V> TNULL;
 
-    private static boolean isGimmickDisplayed = false;
-
     public RedBlackTreeMap() {
         TNULL = new Node<K, V>();
         TNULL.isRed = false;
@@ -35,48 +33,12 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return getKeyByValueHelper(root, value);
     }
 
-    public List<K> searchKeysByContainingValue(String targetValue) {
-        List<K> matchingKeys = new ArrayList<>();
-        searchKeysByContainingValueHelper(root, targetValue, matchingKeys);
-        isGimmickDisplayed = true;
-        return matchingKeys;
-    }
-
     public V getValueByKey(K key) {
         Node<K, V> node = searchTreeHelper(this.root, key);
         if (node != TNULL) {
             return node.value;
         }
         return null;
-    }
-
-    public List<K> searchKeysByContainingKey(String targetKeySubstring) {
-        List<K> matchingKeys = new ArrayList<>();
-        searchKeysByContainingKeyHelper(root, targetKeySubstring, matchingKeys);
-        isGimmickDisplayed = true;
-        return matchingKeys;
-    }
-
-    private void searchKeysByContainingKeyHelper(
-            Node<K, V> node, String targetKeySubstring, List<K> matchingKeys) {
-        if (node == TNULL) {
-            return;
-        }
-
-        if (node.key.toString().contains(targetKeySubstring)) {
-            matchingKeys.add(node.key);
-            checkGimmick(node);
-        }
-
-        searchKeysByContainingKeyHelper(node.left, targetKeySubstring, matchingKeys);
-        searchKeysByContainingKeyHelper(node.right, targetKeySubstring, matchingKeys);
-    }
-
-    public List<V> searchValuesByContainingKey(String targetKeyString) {
-        List<V> matchingValues = new ArrayList<>();
-        searchValuesByContainingKeyHelper(root, targetKeyString, matchingValues);
-        isGimmickDisplayed = true;
-        return matchingValues;
     }
 
     public void printTree() {
@@ -267,40 +229,9 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return rightResult;
     }
 
-    private void searchKeysByContainingValueHelper(
-            Node<K, V> node, String targetValue, List<K> matchingKeys) {
-        if (node == TNULL) {
-            return;
-        }
-
-        if (node.value.toString().contains(targetValue)) {
-            matchingKeys.add(node.key);
-            checkGimmick(node);
-        }
-
-        searchKeysByContainingValueHelper(node.left, targetValue, matchingKeys);
-        searchKeysByContainingValueHelper(node.right, targetValue, matchingKeys);
-    }
-
-    private void searchValuesByContainingKeyHelper(
-            Node<K, V> node, String targetKeyString, List<V> matchingValues) {
-        if (node == TNULL) {
-            return;
-        }
-
-        if (node.key.toString().contains(targetKeyString)) {
-            matchingValues.add(node.value);
-            checkGimmick(node);
-        }
-
-        searchValuesByContainingKeyHelper(node.left, targetKeyString, matchingValues);
-        searchValuesByContainingKeyHelper(node.right, targetKeyString, matchingValues);
-    }
-
     public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
         ArrayList<String> matchingKeyValues = new ArrayList<>();
         searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
-        isGimmickDisplayed = true;
         return matchingKeyValues;
     }
 
@@ -313,7 +244,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         if (node.key.toString().contains(targetKeySubstring)) {
             String keyValue = node.key + "\n" + node.value;
             matchingKeyValues.add(keyValue);
-            checkGimmick(node);
         }
 
         searchKeysAndValuesByContainingKeyHelper(node.left, targetKeySubstring, matchingKeyValues);
@@ -323,7 +253,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     public ArrayList<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
         ArrayList<String> matchingKeyValues = new ArrayList<>();
         searchKeysAndValuesByContainingValueHelper(root, targetValueSubstring, matchingKeyValues);
-        isGimmickDisplayed = true;
         return matchingKeyValues;
     }
 
@@ -336,7 +265,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         if (node.value.toString().contains(targetValueSubstring)) {
             String keyValue = node.key + "\n" + node.value;
             matchingKeyValues.add(keyValue);
-            checkGimmick(node);
         }
 
         searchKeysAndValuesByContainingValueHelper(node.left, targetValueSubstring, matchingKeyValues);
@@ -377,38 +305,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
             printTreeHelper(root.left, space);
         }
-    }
-
-    public void checkGimmick(Node<K, V> node) {
-
-        String key = node.key.toString().toLowerCase();
-        String value = node.value.toString().toLowerCase();
-
-        if (key.contains("random") || value.contains("random") || key.contains("acak") || value.contains("acak")) {
-            if (!isGimmickDisplayed) {
-                randomGimmick();
-                isGimmickDisplayed = true;
-            }
-        }
-
-        if (key.contains("kalkulator") || value.contains("kalkulator") || key.contains("calculator")
-                || value.contains("calculator")) {
-            if (!isGimmickDisplayed) {
-                calculatorGimmick();
-                isGimmickDisplayed = true;
-            }
-        }
-    }
-
-    public void randomGimmick() {
-        Random random = new Random();
-        int randomNumber = random.nextInt(100);
-        System.out.println("Random number: " + randomNumber);
-    }
-
-    public void calculatorGimmick() {
-        // TODO
-        System.out.println("Belum jadi bang");
     }
 
     public void deleteNode(K key) {
