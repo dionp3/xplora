@@ -103,6 +103,18 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         fixInsert(node);
     }
 
+    public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
+        ArrayList<String> matchingKeyValues = new ArrayList<>();
+        searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
+        return matchingKeyValues;
+    }
+
+    public ArrayList<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
+        ArrayList<String> matchingKeyValues = new ArrayList<>();
+        searchKeysAndValuesByContainingValueHelper(root, targetValueSubstring, matchingKeyValues);
+        return matchingKeyValues;
+    }
+
     private void leftRotate(Node<K, V> x) {
         Node<K, V> y = x.right;
         x.right = y.left;
@@ -229,12 +241,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return rightResult;
     }
 
-    public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
-        ArrayList<String> matchingKeyValues = new ArrayList<>();
-        searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
-        return matchingKeyValues;
-    }
-
     private void searchKeysAndValuesByContainingKeyHelper(
             Node<K, V> node, String targetKeySubstring, List<String> matchingKeyValues) {
         if (node == TNULL) {
@@ -248,12 +254,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
         searchKeysAndValuesByContainingKeyHelper(node.left, targetKeySubstring, matchingKeyValues);
         searchKeysAndValuesByContainingKeyHelper(node.right, targetKeySubstring, matchingKeyValues);
-    }
-
-    public ArrayList<String> searchKeysAndValuesByContainingValue(String targetValueSubstring) {
-        ArrayList<String> matchingKeyValues = new ArrayList<>();
-        searchKeysAndValuesByContainingValueHelper(root, targetValueSubstring, matchingKeyValues);
-        return matchingKeyValues;
     }
 
     private void searchKeysAndValuesByContainingValueHelper(

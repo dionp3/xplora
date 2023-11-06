@@ -12,7 +12,7 @@ public class GimmickUtil {
         for (String item : combinedOutput) {
             if (item.toLowerCase().contains("suit")) {
                 // Jika ada, tambahkan gimmick suit
-                combinedOutput.add(0, "Gimmick: " + suit());
+                combinedOutput.add(0, suit());
                 return; // Hanya satu gimmick boleh ditambahkan, sehingga kita keluar dari loop
             }
         }
@@ -21,15 +21,16 @@ public class GimmickUtil {
         for (String item : combinedOutput) {
             if (item.toLowerCase().contains("acak") || item.toLowerCase().contains("random")) {
                 // Jika ada, tambahkan gimmick randomGimmick
-                combinedOutput.add(0, "Gimmick: " + randomGimmick());
+                combinedOutput.add(0, randomGimmick());
                 return; // Hanya satu gimmick boleh ditambahkan, sehingga kita keluar dari loop
             }
         }
     }
 
     private static String randomGimmick() {
-        // Implementasi gimmick randomGimmick, Anda dapat menyesuaikan sesuai keinginan
-        return "This is a random gimmick!";
+        Random random = new Random();
+        int randomNumber = random.nextInt(100);
+        return "Random Number: " + randomNumber;
     }
 
     private static String suit() {
