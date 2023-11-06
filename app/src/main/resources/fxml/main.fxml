@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.gnulag.xplora.Controller">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.gnulag.xplora.controllers.Controller">
 
     <TextField fx:id="searchTextField" promptText="Enter search parameter"/>
     <Button fx:id="searchButton" text="Search" onAction="#handleSearchButton"/>
