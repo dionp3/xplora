@@ -3,12 +3,32 @@
  */
 package org.gnulag.xplora;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
+import org.gnulag.xplora.models.RedBlackTreeMap;
+import javafx.scene.control.ListView;
+import org.gnulag.xplora.utils.JsonUtil;
+import org.gnulag.xplora.utils.PrintsUtil;
+
+public class App {     
+    private static RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        // Functions to call to test >>
+        JsonUtil.loadJsonData(rbTree, "/data.json");
+        ArrayList<String> valueKVsByKey = rbTree.searchKeysAndValuesByContainingKey("acak");
+        ArrayList<String> valueKVsByValue = rbTree.searchKeysAndValuesByContainingValue("random");
+        ArrayList<String> combinedResults = PrintsUtil.combineResults(valueKVsByKey, valueKVsByValue);
+        System.out.println(combinedResults); // Final list to implement in front end
+        // End here
     }
+
 }
