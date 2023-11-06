@@ -18,8 +18,7 @@ import javafx.scene.control.ListView;
 import org.gnulag.xplora.utils.JsonUtil;
 import org.gnulag.xplora.utils.PrintsUtil;
 
-public class App { // Initialize your RedBlackTreeMap
-
+public class App {     
     private static RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
 
     public static void main(String[] args) {
@@ -28,7 +27,7 @@ public class App { // Initialize your RedBlackTreeMap
         ArrayList<String> valueKVsByKey = rbTree.searchKeysAndValuesByContainingKey("acak");
         ArrayList<String> valueKVsByValue = rbTree.searchKeysAndValuesByContainingValue("random");
         ArrayList<String> combinedResults = PrintsUtil.combineResults(valueKVsByKey, valueKVsByValue);
-        System.out.println(combinedResults);
+        System.out.println(combinedResults); // Final list to implement in front end
         // End here
     }
 
