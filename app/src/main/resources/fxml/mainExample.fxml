@@ -6,7 +6,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.yourpackage.Controller">
     <stylesheets>
-        <URL value="@../resources/css/styles.css" />
+        <URL value="@../resources/css/stylesExample.css" />
     </stylesheets>
     
     <Label text="Selamat Datang di Aplikasi Anda" layoutX="20" layoutY="20" styleClass="label" />

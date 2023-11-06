@@ -17,12 +17,7 @@ public class App {
         JsonUtil.loadJsonData(rbTree, "/data.json");
 
         String searchParam = "acak";
-        List<String> combined = new ArrayList<>();
 
-        combined.addAll(rbTree.searchKeysByContainingKey(searchParam));
-        combined.addAll(rbTree.searchKeysByContainingValue(searchParam));
-
-        PrintsUtil.printResults(rbTree, combined);
+        PrintsUtil.printCombinedOutput(rbTree, searchParam);
     }
-
 }
