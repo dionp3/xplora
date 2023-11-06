@@ -1,7 +1,13 @@
 package org.gnulag.xplora.controllers;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import org.gnulag.xplora.utils.PrintsUtil;
+import org.gnulag.xplora.models.RedBlackTreeMap;
+import org.gnulag.xplora.utils.JsonUtil;
+import org.gnulag.xplora.utils.PrintsUtil;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
 public class Controller implements Initializable {
 
     @FXML
-    private ListView<?> listView;
+    private ListView<String> listView;
 
     @FXML
     private Button backButton;
@@ -28,9 +34,19 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane slider;
 
+    private RedBlackTreeMap<String, String> rbTree;
+
+    public Controller() {
+        rbTree = new RedBlackTreeMap<>();
+        JsonUtil.loadJsonData(rbTree, "/data.json");
+    }
+
     @FXML
     void searchKeyOrValue(ActionEvent event) {
-
+        String searchParam = searchBar.getText();
+        List<String> searchResult = PrintsUtil.printCombinedOutput(rbTree, searchParam);
+        listView.getItems().clear();
+        listView.getItems().addAll(searchResult);
     }
 
     @FXML
