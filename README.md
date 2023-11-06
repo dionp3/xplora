@@ -18,10 +18,11 @@ gradle run
 ## Contributors
 
 Thanks to all contributors in this project.
-[Hanshi](https://github.com/rvyhvn) [X](https://x.com/anarkistik).
-[Fzhnf](https://github.com/fzhnf) [X](https://x.com/fzhnf_ansa).
-[Prince Nizroh](https://github.com/princenizroh).
-[Luminostar](https://github.com/luminostar) [X](https://x.com/muhrafi_aa).
+
+- [Hanshi](https://github.com/rvyhvn) Look after them on [X](https://x.com/anarkistik).
+- [Fzhnf](https://github.com/fzhnf) Look after them on [X](https://x.com/fzhnf_ansa).
+- [Prince Nizroh](https://github.com/princenizroh).
+- [Luminostar](https://github.com/luminostar) Look after them on [X](https://x.com/muhrafi_aa).
 
 ## License
 
