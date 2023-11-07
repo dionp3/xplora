@@ -1,4 +1,4 @@
-package org.gnulag.xplora;
+package org.gnulag.xplora.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 import org.gnulag.xplora.utils.JsonUtil;
 import org.gnulag.xplora.utils.PrintsUtil;
+import java.util.List;
 
 public class Controller {
     @FXML
@@ -28,6 +29,8 @@ public class Controller {
     @FXML
     private void handleSearchButton() {
         String searchParam = searchTextField.getText();
-        PrintsUtil.printCombinedOutput(rbTree, searchParam);
-    }
+        List<String> searchResult = PrintsUtil.printCombinedOutput(rbTree, searchParam);
+        outputListView.getItems().clear();
+        outputListView.getItems().addAll(searchResult);
+  }
 }
