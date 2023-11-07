@@ -6,8 +6,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -15,7 +13,7 @@ public class App extends Application {
   public void start(Stage primaryStage) throws Exception {
     // Create a label with the "Hello World!" text
     try {
-      FXMLLoader board = new FXMLLoader(App.class.getResource("/fxml/board.fxml"));
+      FXMLLoader board = new FXMLLoader(App.class.getResource("/fxml/main.fxml"));
       Parent root = board.load();
       Controller controller = board.getController();
       // Create a scene and set it on the stage
@@ -23,7 +21,7 @@ public class App extends Application {
       primaryStage.setScene(scene);
 
       // Set the title of the application window
-      primaryStage.setTitle("JavaFX Hello World");
+      primaryStage.setTitle("Xplora");
 
       // Show the application window
       primaryStage.show();
@@ -32,9 +30,7 @@ public class App extends Application {
       e.printStackTrace();
     }
   }
-
   public static void main(String[] args) {
-    // Launch the JavaFX application
-    launch(args);
+        launch(args);
   }
 }
