@@ -1,20 +1,37 @@
 package org.gnulag.xplora.utils;
 
-import org.gnulag.xplora.models.RedBlackTreeMap;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * PrintsUtil
- */
+import org.gnulag.xplora.models.RedBlackTreeMap;
+
 public class PrintsUtil {
-    public static List<String> printCombinedOutput(RedBlackTreeMap<String, String> rbTree, String searchParam) {
-        List<String> combinedOutput = new ArrayList<>();
-        List<String> valueSearchKeyAndValuesByContainingKey = rbTree.searchKeysAndValuesByContainingKey(searchParam);
-        List<String> valueSearchKeyAndValuesByContainingValue = rbTree
-                .searchKeysAndValuesByContainingValue(searchParam);
-        combinedOutput.addAll(valueSearchKeyAndValuesByContainingKey);
-        combinedOutput.addAll(valueSearchKeyAndValuesByContainingValue);
-        return combinedOutput;
+    public static ArrayList<String> combineResults(ArrayList<String> resultByKey, ArrayList<String> resultByValue) {
+        ArrayList<String> combinedResults = new ArrayList<>();
+
+        // Iterasi melalui hasil dari pencarian berdasarkan key
+        for (String item : resultByKey) {
+            // Jika item belum ada dalam combinedResults, tambahkan
+            if (!combinedResults.contains(item)) {
+                combinedResults.add(item);
+            }
+        }
+
+        // Iterasi melalui hasil dari pencarian berdasarkan value
+        for (String item : resultByValue) {
+            // Jika item belum ada dalam combinedResults, tambahkan
+            if (!combinedResults.contains(item)) {
+                combinedResults.add(item);
+            }
+        }
+
+        // Panggil checkGimmick untuk menambahkan gimmick
+        GimmickUtil.checkGimmick(combinedResults);
+
+        return combinedResults;
+    }
+
+    public static List<String> combineResults(RedBlackTreeMap<String, String> rbTree, String searchParam) {
+        return null;
     }
 }

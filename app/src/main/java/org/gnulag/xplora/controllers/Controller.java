@@ -50,7 +50,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         searchButton.setOnMouseClicked(event -> {
             String searchParam = searchBar.getText();
-            List<String> searchResult = PrintsUtil.printCombinedOutput(rbTree, searchParam);
+            List<String> searchResult = PrintsUtil.combineResults(rbTree, searchParam);
             listView.getItems().clear();
             listView.getItems().addAll(searchResult);
         });
