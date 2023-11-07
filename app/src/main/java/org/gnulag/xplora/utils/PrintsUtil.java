@@ -1,13 +1,10 @@
 package org.gnulag.xplora.utils;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import org.gnulag.xplora.models.RedBlackTreeMap;
 
 public class PrintsUtil {
     public static ArrayList<String> combineResults(ArrayList<String> resultByKey, ArrayList<String> resultByValue) {
-        ArrayList<String> combinedResults = new ArrayList<>();
+        ArrayList<String> combinedResults = new ArrayList<>(resultByKey);
 
         // Iterasi melalui hasil dari pencarian berdasarkan key
         for (String item : resultByKey) {
@@ -29,9 +26,5 @@ public class PrintsUtil {
         GimmickUtil.checkGimmick(combinedResults);
 
         return combinedResults;
-    }
-
-    public static List<String> combineResults(RedBlackTreeMap<String, String> rbTree, String searchParam) {
-        return null;
     }
 }

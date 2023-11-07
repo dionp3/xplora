@@ -1,6 +1,7 @@
 package org.gnulag.xplora.controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -50,9 +51,12 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         searchButton.setOnMouseClicked(event -> {
             String searchParam = searchBar.getText();
-            List<String> searchResult = PrintsUtil.combineResults(rbTree, searchParam);
+            List<String> searchResultByKey = new ArrayList<>(rbTree.searchKeysAndValuesByContainingKey(searchParam));
+            List<String> searchResultByValue = new ArrayList<>(rbTree.searchKeysAndValuesByContainingValue(searchParam));
+            List<String> combinedResults = PrintsUtil.combineResults(new ArrayList<>(searchResultByKey), new ArrayList<>(searchResultByValue));
+
             listView.getItems().clear();
-            listView.getItems().addAll(searchResult);
+            listView.getItems().addAll(combinedResults);
         });
 
         slider.setTranslateX(400);

@@ -473,4 +473,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
 
         return y;
     }
+
+    public class Entry<T1, T2> {
+    }
 }
