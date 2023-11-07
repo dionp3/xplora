@@ -1,16 +1,11 @@
 package org.gnulag.xplora;
 
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.gnulag.xplora.controllers.Controller;
-import org.gnulag.xplora.models.RedBlackTreeMap;
-import org.gnulag.xplora.utils.GimmickUtil;
-import org.gnulag.xplora.utils.JsonUtil;
-import org.gnulag.xplora.utils.PrintsUtil;
 
 public class App extends Application {
   @Override
@@ -36,13 +31,6 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
-    // launch(args)
-    RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
-    JsonUtil.loadJsonData(rbTree, "/data.json");
-    ArrayList<String> resultByKey = rbTree.searchKeysAndValuesByContainingKey("suit");
-    ArrayList<String> resultByValue = rbTree.searchKeysAndValuesByContainingValue("suit");
-    ArrayList<String> combinedOutput = PrintsUtil.combineResults(resultByKey, resultByValue);
-    GimmickUtil.checkGimmick(combinedOutput);
-    System.out.println(combinedOutput);
+    launch(args);
   }
 }
