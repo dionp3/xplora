@@ -3,7 +3,6 @@ package org.gnulag.xplora.models;
 import java.util.ArrayList;
 import java.util.List;
 
-
 class Node<K, V> {
     public K key;
     public V value;
@@ -41,64 +40,64 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return null;
     }
 
-      public void printTree() {
-            printTreeHelper(root, 0);
-      }
+    public void printTree() {
+        printTreeHelper(root, 0);
+    }
 
-      public void preorder() {
-            preOrderHelper(this.root);
-      }
+    public void preorder() {
+        preOrderHelper(this.root);
+    }
 
-      public void inorder() {
-            inOrderHelper(this.root);
-      }
+    public void inorder() {
+        inOrderHelper(this.root);
+    }
 
-      public void postorder() {
-            postOrderHelper(this.root);
-      }
+    public void postorder() {
+        postOrderHelper(this.root);
+    }
 
-      public Node<K, V> searchTree(K k) {
-            return searchTreeHelper(this.root, k);
-      }
+    public Node<K, V> searchTree(K k) {
+        return searchTreeHelper(this.root, k);
+    }
 
-      public void insert(K key, V value) {
-            Node<K, V> node = new Node<K, V>();
-            node.parent = null;
-            node.key = key;
-            node.value = value;
-            node.left = TNULL;
-            node.right = TNULL;
-            node.isRed = true;
+    public void insert(K key, V value) {
+        Node<K, V> node = new Node<K, V>();
+        node.parent = null;
+        node.key = key;
+        node.value = value;
+        node.left = TNULL;
+        node.right = TNULL;
+        node.isRed = true;
 
-            Node<K, V> y = null;
-            Node<K, V> x = this.root;
+        Node<K, V> y = null;
+        Node<K, V> x = this.root;
 
-            while (x != TNULL) {
-                  y = x;
-                  if (node.key.compareTo(x.key) < 0) {
-                        x = x.left;
-                  } else {
-                        x = x.right;
-                  }
-            }
-
-            node.parent = y;
-            if (y == null) {
-                  root = node;
-            } else if (node.key.compareTo(y.key) < 0) {
-                  y.left = node;
+        while (x != TNULL) {
+            y = x;
+            if (node.key.compareTo(x.key) < 0) {
+                x = x.left;
             } else {
-                  y.right = node;
+                x = x.right;
             }
+        }
 
-            if (node.parent == null) {
-                  node.isRed = false;
-                  return;
-            }
+        node.parent = y;
+        if (y == null) {
+            root = node;
+        } else if (node.key.compareTo(y.key) < 0) {
+            y.left = node;
+        } else {
+            y.right = node;
+        }
 
-            if (node.parent.parent == null) {
-                  return;
-            }
+        if (node.parent == null) {
+            node.isRed = false;
+            return;
+        }
+
+        if (node.parent.parent == null) {
+            return;
+        }
 
         fixInsert(node);
     }
@@ -151,91 +150,91 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         x.parent = y;
     }
 
-      // Balance the node after insertion
-      private void fixInsert(Node<K, V> k) {
-            Node<K, V> u;
-            while (k.parent.isRed == true) {
-                  if (k.parent == k.parent.parent.right) {
-                        u = k.parent.parent.left;
-                        if (u.isRed == true) {
-                              u.isRed = false;
-                              k.parent.isRed = false;
-                              k.parent.parent.isRed = true;
-                              k = k.parent.parent;
-                        } else {
-                              if (k == k.parent.left) {
-                                    k = k.parent;
-                                    rightRotate(k);
-                              }
-                              k.parent.isRed = false;
-                              k.parent.parent.isRed = true;
-                              leftRotate(k.parent.parent);
-                        }
-                  } else {
-                        u = k.parent.parent.right;
+    // Balance the node after insertion
+    private void fixInsert(Node<K, V> k) {
+        Node<K, V> u;
+        while (k.parent.isRed == true) {
+            if (k.parent == k.parent.parent.right) {
+                u = k.parent.parent.left;
+                if (u.isRed == true) {
+                    u.isRed = false;
+                    k.parent.isRed = false;
+                    k.parent.parent.isRed = true;
+                    k = k.parent.parent;
+                } else {
+                    if (k == k.parent.left) {
+                        k = k.parent;
+                        rightRotate(k);
+                    }
+                    k.parent.isRed = false;
+                    k.parent.parent.isRed = true;
+                    leftRotate(k.parent.parent);
+                }
+            } else {
+                u = k.parent.parent.right;
 
-                        if (u.isRed == true) {
-                              u.isRed = false;
-                              k.parent.isRed = false;
-                              k.parent.parent.isRed = true;
-                              k = k.parent.parent;
-                        } else {
-                              if (k == k.parent.right) {
-                                    k = k.parent;
-                                    leftRotate(k);
-                              }
-                              k.parent.isRed = false;
-                              k.parent.parent.isRed = true;
-                              rightRotate(k.parent.parent);
-                        }
-                  }
-                  if (k == root) {
-                        break;
-                  }
+                if (u.isRed == true) {
+                    u.isRed = false;
+                    k.parent.isRed = false;
+                    k.parent.parent.isRed = true;
+                    k = k.parent.parent;
+                } else {
+                    if (k == k.parent.right) {
+                        k = k.parent;
+                        leftRotate(k);
+                    }
+                    k.parent.isRed = false;
+                    k.parent.parent.isRed = true;
+                    rightRotate(k.parent.parent);
+                }
             }
-            root.isRed = false;
-      }
+            if (k == root) {
+                break;
+            }
+        }
+        root.isRed = false;
+    }
 
-      // Pre order
-      private void preOrderHelper(Node<K, V> node) {
-            if (node != TNULL) {
-                  System.out.print(node.key + " ");
-                  preOrderHelper(node.left);
-                  preOrderHelper(node.right);
-            }
-      }
+    // Pre order
+    private void preOrderHelper(Node<K, V> node) {
+        if (node != TNULL) {
+            System.out.print(node.key + " ");
+            preOrderHelper(node.left);
+            preOrderHelper(node.right);
+        }
+    }
 
-      // In order
-      private void inOrderHelper(Node<K, V> node) {
-            if (node != TNULL) {
-                  inOrderHelper(node.left);
-                  System.out.print(node.key + " ");
-                  inOrderHelper(node.right);
-            }
-      }
+    // In order
+    private void inOrderHelper(Node<K, V> node) {
+        if (node != TNULL) {
+            inOrderHelper(node.left);
+            System.out.print(node.key + " ");
+            inOrderHelper(node.right);
+        }
+    }
 
-      // Post order
-      private void postOrderHelper(Node<K, V> node) {
-            if (node != TNULL) {
-                  postOrderHelper(node.left);
-                  postOrderHelper(node.right);
-                  System.out.print(node.key + " ");
-            }
-      }
+    // Post order
+    private void postOrderHelper(Node<K, V> node) {
+        if (node != TNULL) {
+            postOrderHelper(node.left);
+            postOrderHelper(node.right);
+            System.out.print(node.key + " ");
+        }
+    }
 
-      private K getKeyByValueHelper(Node<K, V> node, V targetValue) {
-            if (node == TNULL) {
-                  return null;
-            }
+    private K getKeyByValueHelper(Node<K, V> node, V targetValue) {
+        if (node == TNULL) {
+            return null;
+        }
 
-            if (node.value.equals(targetValue)) {
-                  return node.key;
-            }
+        if (node.value.equals(targetValue)) {
+            return node.key;
+        }
 
-            K leftResult = getKeyByValueHelper(node.left, targetValue);
-            if (leftResult != null) {
-                  return leftResult;
-            }
+        K leftResult = getKeyByValueHelper(node.left, targetValue);
+        if (leftResult != null) {
+            return leftResult;
+        }
 
         K rightResult = getKeyByValueHelper(node.right, targetValue);
         return rightResult;
@@ -271,37 +270,37 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         searchKeysAndValuesByContainingValueHelper(node.right, targetValueSubstring, matchingKeyValues);
     }
 
-      // Search the tree
-      private Node<K, V> searchTreeHelper(Node<K, V> node, K key) {
-            if (node == TNULL || key.equals(node.key)) {
-                  return node;
+    // Search the tree
+    private Node<K, V> searchTreeHelper(Node<K, V> node, K key) {
+        if (node == TNULL || key.equals(node.key)) {
+            return node;
+        }
+
+        if (key.compareTo(node.key) < 0) {
+            return searchTreeHelper(node.left, key);
+        }
+        return searchTreeHelper(node.right, key);
+    }
+
+    private void printTreeHelper(Node<K, V> root, int space) {
+        if (root != TNULL) {
+            space += 10;
+            printTreeHelper(root.right, space);
+
+            System.out.println();
+            for (int i = 10; i < space; i++) {
+                System.out.print(" ");
             }
 
-            if (key.compareTo(node.key) < 0) {
-                  return searchTreeHelper(node.left, key);
+            // Set text color based on the node's color
+            if (root.isRed == true) {
+                System.out.print("\u001B[31m"); // Set text color to red for RED nodes
             }
-            return searchTreeHelper(node.right, key);
-      }
 
-      private void printTreeHelper(Node<K, V> root, int space) {
-            if (root != TNULL) {
-                  space += 10;
-                  printTreeHelper(root.right, space);
+            System.out.print(root.key);
 
-                  System.out.println();
-                  for (int i = 10; i < space; i++) {
-                        System.out.print(" ");
-                  }
-
-                  // Set text color based on the node's color
-                  if (root.isRed == true) {
-                        System.out.print("\u001B[31m"); // Set text color to red for RED nodes
-                  }
-
-                  System.out.print(root.key);
-
-                  // Reset text color after printing the value
-                  System.out.print("\u001B[0m");
+            // Reset text color after printing the value
+            System.out.print("\u001B[0m");
 
             printTreeHelper(root.left, space);
         }
@@ -474,6 +473,4 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         return y;
     }
 
-    public class Entry<T1, T2> {
-    }
 }
