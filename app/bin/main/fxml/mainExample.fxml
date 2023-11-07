@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.yourpackage.Controller">
+    <stylesheets>
+        <URL value="@../resources/css/stylesExample.css" />
+    </stylesheets>
+    
+    <Label text="Selamat Datang di Aplikasi Anda" layoutX="20" layoutY="20" styleClass="label" />
+    <Button text="Klik Saya" layoutX="20" layoutY="60" styleClass="button" onAction="#onButtonClick" />
+</AnchorPane>
+
+
