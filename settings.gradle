@@ -12,3 +12,4 @@ plugins {
 
 rootProject.name = 'xplora'
 include('app')
+include("controllers")
