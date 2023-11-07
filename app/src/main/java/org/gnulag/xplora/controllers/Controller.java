@@ -8,16 +8,16 @@ import org.gnulag.xplora.utils.PrintsUtil;
 import org.gnulag.xplora.models.RedBlackTreeMap;
 import org.gnulag.xplora.utils.JsonUtil;
 
-import javafx.animation.TranslateTransition;
-import javafx.util.Duration;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.fxml.Initializable;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.util.Duration;
 
 public class Controller implements Initializable {
 
