@@ -102,6 +102,47 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         fixInsert(node);
     }
 
+    public Node<K, V> minimum(Node<K, V> node) {
+        while (node.left != TNULL) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    public Node<K, V> maximum(Node<K, V> node) {
+        while (node.right != TNULL) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    public Node<K, V> successor(Node<K, V> x) {
+        if (x.right != TNULL) {
+            return minimum(x.right);
+        }
+
+        Node<K, V> y = x.parent;
+        while (y != TNULL && x == y.right) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
+
+    public Node<K, V> predecessor(Node<K, V> x) {
+        if (x.left != TNULL) {
+            return maximum(x.left);
+        }
+
+        Node<K, V> y = x.parent;
+        while (y != TNULL && x == y.left) {
+            x = y;
+            y = y.parent;
+        }
+
+        return y;
+    }
+
     public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
         ArrayList<String> matchingKeyValues = new ArrayList<>();
         searchKeysAndValuesByContainingKeyHelper(root, targetKeySubstring, matchingKeyValues);
@@ -431,46 +472,4 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
             fixDelete(x);
         }
     }
-
-    public Node<K, V> minimum(Node<K, V> node) {
-        while (node.left != TNULL) {
-            node = node.left;
-        }
-        return node;
-    }
-
-    public Node<K, V> maximum(Node<K, V> node) {
-        while (node.right != TNULL) {
-            node = node.right;
-        }
-        return node;
-    }
-
-    public Node<K, V> successor(Node<K, V> x) {
-        if (x.right != TNULL) {
-            return minimum(x.right);
-        }
-
-        Node<K, V> y = x.parent;
-        while (y != TNULL && x == y.right) {
-            x = y;
-            y = y.parent;
-        }
-        return y;
-    }
-
-    public Node<K, V> predecessor(Node<K, V> x) {
-        if (x.left != TNULL) {
-            return maximum(x.left);
-        }
-
-        Node<K, V> y = x.parent;
-        while (y != TNULL && x == y.left) {
-            x = y;
-            y = y.parent;
-        }
-
-        return y;
-    }
-
 }
