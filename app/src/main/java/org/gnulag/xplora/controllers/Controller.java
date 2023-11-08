@@ -57,24 +57,36 @@ public class Controller implements Initializable {
 
             listView.getItems().clear();
             listView.getItems().addAll(combinedResults);
+
+            listView.setPrefHeight(Math.min(combinedResults.size() * 30, 535));
         });
 
         slider.setTranslateX(400);
         listView.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.5));
-            slide.setNode(slider);
+            String selectedItem = listView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                String key = selectedItem;
+                String value = rbTree.getValueByKey(key);
 
-            slide.setToX(0);
-            slide.play();
+                String displayText =  key + "\n\n" + value;
+                description.setText(displayText);
 
-            slider.setTranslateX(400);
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.5));
+                slide.setNode(slider);
 
-            slide.setOnFinished((ActionEvent e) -> {
-                listView.setVisible(true);
-                backButton.setVisible(true);
-            });
+                slide.setToX(0);
+                slide.play();
+
+                slider.setTranslateX(400);
+
+                slide.setOnFinished((ActionEvent e) -> {
+                    listView.setVisible(true);
+                    backButton.setVisible(true);
+                });
+            }
         });
+
 
         backButton.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
