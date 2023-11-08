@@ -1,12 +1,11 @@
 package org.gnulag.xplora;
 
-import org.gnulag.xplora.controllers.Controller;
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.gnulag.xplora.controllers.Controller;
 
 public class App extends Application {
   @Override
@@ -30,7 +29,8 @@ public class App extends Application {
       e.printStackTrace();
     }
   }
+
   public static void main(String[] args) {
-        launch(args);
+    launch(args);
   }
 }

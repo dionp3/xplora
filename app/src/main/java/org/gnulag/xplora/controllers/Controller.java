@@ -16,11 +16,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.fxml.Initializable;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
-
+import javafx.scene.web.WebView;
 public class Controller implements Initializable {
 
     @FXML
@@ -34,7 +35,9 @@ public class Controller implements Initializable {
 
     @FXML
     private AnchorPane slider;
-
+    
+    @FXML
+    private VBox textAreaContainer;
     @FXML
     private Label backButton;
 
@@ -50,6 +53,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String inputText = searchBar.getText();
+        textAreaContainer.getChildren().clear();
         searchButton.setOnMouseClicked(event -> {
             String searchParam = searchBar.getText();
             List<String> searchResultByKey = new ArrayList<>(rbTree.searchKeysAndValuesByContainingKey(searchParam));
@@ -69,8 +74,32 @@ public class Controller implements Initializable {
                 String key = selectedItem;
                 String value = rbTree.getValueByKey(key);
 
-                String displayText =  key + "\n\n" + value;
-                description.setText(displayText);
+                // String inputText = searchBar.getText().toLowerCase(); // Ambil input teks dari pengguna dan ubah menjadi lowercase
+                // textAreaContainer.getChildren().clear();
+        
+                key = formatTextWithBold(key, inputText, "acak");
+                value = formatTextWithBold(value, inputText, "acak");
+                // String formattedKey = key.replace(inputText, "<b>" + inputText + "</b>");
+                // String formattedValue = value.replace(inputText, "<b>" + inputText + "</b>");
+
+                // if (key.toLowerCase().contains(inputText.toLowerCase()) || value.toLowerCase().contains(inputText.toLowerCase())) {
+                    // WebView webView = new WebView();
+                    // String content = "judul: " + formattedKey + "<br>isi konten: " + formattedValue;
+                    // webView.getEngine().loadContent(content);
+                    // textAreaContainer.getChildren().add(webView);
+                // }
+                
+                WebView webView = new WebView();
+                String content = "judul: " + key + "<br>isi konten: " + value;
+                
+                webView.getEngine().loadContent(content);
+                textAreaContainer.getChildren().add(webView);
+                // description.setText(content);
+
+                searchBar.clear(); 
+        // Tampilkan teks dalam WebView
+                // String displayText =  key + "\n\n" + value;
+                // description.setText(displayText);
 
                 TranslateTransition slide = new TranslateTransition();
                 slide.setDuration(Duration.seconds(0.5));
@@ -104,6 +133,24 @@ public class Controller implements Initializable {
                 backButton.setVisible(false);
             });
         });
+    }
+    private String formatTextWithBold(String text, String inputText, String keyword) {
+        if (text != null && inputText != null) {
+            String[] words = text.split("\\s+");
+            StringBuilder formattedText = new StringBuilder();
+
+            for (String word : words) {
+                if (word.toLowerCase().contains(inputText.toLowerCase()) && word.toLowerCase().contains(keyword)) {
+                    formattedText.append("<b>").append(word).append("</b>").append(" ");
+                } else {
+                    formattedText.append(word).append(" ");
+                }
+            }
+
+            return formattedText.toString().trim();
+        }
+
+        return text;
     }
 }
 
