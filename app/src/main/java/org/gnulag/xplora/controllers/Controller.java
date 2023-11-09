@@ -65,10 +65,10 @@ public class Controller implements Initializable {
         listView.setOnMouseClicked(event -> {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                String key = selectedItem;
-                String value = rbTree.getValueByKey(key);
+                String content = selectedItem;
 
-                String displayText =  key + "\n\n" + value;
+                // Update the description TextArea with the key and value
+                String displayText = content;
                 description.setText(displayText);
 
                 TranslateTransition slide = new TranslateTransition();
