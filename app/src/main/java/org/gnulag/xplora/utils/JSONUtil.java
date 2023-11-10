@@ -1,19 +1,14 @@
 package org.gnulag.xplora.utils;
 
-import org.gnulag.xplora.models.RedBlackTreeMap;
+import java.io.InputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.gnulag.xplora.models.RedBlackTreeMap;
 
-import java.io.InputStream;
-
-/**
- * JsonUtil
- */
-
-public class JsonUtil {
+public class JSONUtil {
     public static void loadJsonData(RedBlackTreeMap<String, String> rbTree, String resourcePath) {
-        try (InputStream jsonStream = JsonUtil.class.getResourceAsStream(resourcePath)) {
+        try (InputStream jsonStream = JSONUtil.class.getResourceAsStream(resourcePath)) {
             if (jsonStream != null) {
                 JSONArray jsonArray = new JSONArray(new JSONTokener(jsonStream));
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -30,3 +25,4 @@ public class JsonUtil {
         }
     }
 }
+

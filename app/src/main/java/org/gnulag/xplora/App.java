@@ -1,36 +1,30 @@
 package org.gnulag.xplora;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import org.gnulag.xplora.controllers.Controller;
+import org.gnulag.xplora.models.RedBlackTreeMap;
+import org.gnulag.xplora.utils.GameGimmick;
+import org.gnulag.xplora.utils.JSONUtil;
+import org.gnulag.xplora.utils.PrintsUtil;
+import org.gnulag.xplora.utils.RandomGimmick;
 
-public class App extends Application {
-  @Override
-  public void start(Stage primaryStage) throws Exception {
-    // Create a label with the "Hello World!" text
-    try {
-      FXMLLoader board = new FXMLLoader(App.class.getResource("/fxml/main.fxml"));
-      Parent root = board.load();
-      Controller controller = board.getController();
-      // Create a scene and set it on the stage
-      Scene scene = new Scene(root);
-      primaryStage.setScene(scene);
-
-      // Set the title of the application window
-      primaryStage.setTitle("Xplora");
-
-      // Show the application window
-      primaryStage.show();
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
+class App {
   public static void main(String[] args) {
-    launch(args);
+    // Create a Red-Black Tree Map
+    RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+
+    // Insert nodes with different gimmicks
+    rbTree.insert("random", null, new RandomGimmick<>());
+    rbTree.insert("acak", null, new RandomGimmick<>());
+    rbTree.insert("rock", null, new GameGimmick<>());
+    rbTree.insert("paper", null, new GameGimmick<>());
+    rbTree.insert("scissor", null, new GameGimmick<>());
+    rbTree.insert("batu", null, new GameGimmick<>());
+    rbTree.insert("gunting", null, new GameGimmick<>());
+    rbTree.insert("kertas", null, new GameGimmick<>());
+
+    // Load JSON data
+    JSONUtil.loadJsonData(rbTree, "/data.json");
+
+    String searchParam = "kertas";
+    PrintsUtil.printRedBlackTreeResults(rbTree, searchParam);
   }
 }

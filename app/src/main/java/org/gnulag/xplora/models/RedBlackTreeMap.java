@@ -2,15 +2,7 @@ package org.gnulag.xplora.models;
 
 import java.util.ArrayList;
 import java.util.List;
-
-class Node<K, V> {
-    public K key;
-    public V value;
-    public Node<K, V> parent;
-    public Node<K, V> left;
-    public Node<K, V> right;
-    public boolean isRed;
-}
+import org.gnulag.xplora.utils.GimmickAction;
 
 public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     private Node<K, V> root;
@@ -57,7 +49,11 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
     public Node<K, V> searchTree(K k) {
-        return searchTreeHelper(this.root, k);
+        Node<K, V> node = searchTreeHelper(this.root, k);
+        if (node != TNULL && node.gimmick != null) {
+            node.gimmick.gimmick(node);
+        }
+        return node;
     }
 
     public void insert(K key, V value) {
@@ -68,6 +64,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         node.left = TNULL;
         node.right = TNULL;
         node.isRed = true;
+        node.gimmick = null;
 
         Node<K, V> y = null;
         Node<K, V> x = this.root;
@@ -100,6 +97,38 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         }
 
         fixInsert(node);
+    }
+
+    public void insert(K key, V value, GimmickAction<K, V> gimmick) {
+        Node<K, V> node = new Node<K, V>();
+        node.parent = null;
+        node.key = key;
+        node.value = value;
+        node.left = TNULL;
+        node.right = TNULL;
+        node.isRed = true;
+        node.gimmick = gimmick;
+
+        Node<K, V> y = null;
+        Node<K, V> x = this.root;
+
+        while (x != TNULL) {
+            y = x;
+            if (node.key.compareTo(x.key) < 0) {
+                x = x.left;
+            } else {
+                x = x.right;
+            }
+        }
+
+        node.parent = y;
+        if (y == null) {
+            root = node;
+        } else if (node.key.compareTo(y.key) < 0) {
+            y.left = node;
+        } else {
+            y.right = node;
+        }
     }
 
     public Node<K, V> minimum(Node<K, V> node) {
@@ -141,6 +170,35 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
         }
 
         return y;
+    }
+
+    public String searchKeyAndValueByKey(String targetKey) {
+        Node<K, V> node = searchKeyAndValueByExactKeyHelper(root, targetKey);
+        if (node != TNULL) {
+            if (node.gimmick != null) {
+                node.gimmick.gimmick(node);
+            }
+            return node.key + "\n" + node.value;
+        }
+        return null;
+    }
+
+    private Node<K, V> searchKeyAndValueByExactKeyHelper(Node<K, V> node, String targetKey) {
+        if (node == TNULL) {
+            return TNULL;
+        }
+
+        if (node.key.equals(targetKey)) {
+            return node;
+        }
+
+        Node<K, V> leftResult = searchKeyAndValueByExactKeyHelper(node.left, targetKey);
+        if (leftResult != TNULL) {
+            return leftResult;
+        }
+
+        Node<K, V> rightResult = searchKeyAndValueByExactKeyHelper(node.right, targetKey);
+        return rightResult;
     }
 
     public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
@@ -282,7 +340,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
     private void searchKeysAndValuesByContainingKeyHelper(
-            Node<K, V> node, String targetKeySubstring, List<String> matchingKeyValues) {
+        Node<K, V> node, String targetKeySubstring, List<String> matchingKeyValues) {
         if (node == TNULL) {
             return;
         }
@@ -297,12 +355,12 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
     private void searchKeysAndValuesByContainingValueHelper(
-            Node<K, V> node, String targetValueSubstring, List<String> matchingKeyValues) {
+        Node<K, V> node, String targetValueSubstring, List<String> matchingKeyValues) {
         if (node == TNULL) {
             return;
         }
 
-        if (node.value.toString().contains(targetValueSubstring)) {
+        if (node.value != null && node.value.toString().contains(targetValueSubstring)) {
             String keyValue = node.key + "\n" + node.value;
             matchingKeyValues.add(keyValue);
         }
