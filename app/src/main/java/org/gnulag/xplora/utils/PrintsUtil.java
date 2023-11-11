@@ -1,31 +1,37 @@
 package org.gnulag.xplora.utils;
 
+import org.gnulag.xplora.models.RedBlackTreeMap;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PrintsUtil {
-    public static ArrayList<String> combineResults(ArrayList<String> resultByKey, ArrayList<String> resultByValue) {
-        ArrayList<String> combinedResults = new ArrayList<>(resultByKey);
+    public static List<String> printRedBlackTreeResults(RedBlackTreeMap<String, String> rbTree, String searchParam) {
+        String result = rbTree.searchKeyAndValueByKey(searchParam);
+        List<String> resultsByKey = rbTree.searchKeysAndValuesByContainingKey(searchParam);
+        List<String> resultsByValue = rbTree.searchKeysAndValuesByContainingValue(searchParam);
+        ArrayList<String> combinedResults = new ArrayList<>();
+        if (result != null) {
+            combinedResults.add(result);
+        }
 
-        // Iterasi melalui hasil dari pencarian berdasarkan key
-        for (String item : resultByKey) {
-            // Jika item belum ada dalam combinedResults, tambahkan
+        for (String item : resultsByKey) {
+            if (!combinedResults.contains(item)) {
+                combinedResults.add(item);
+            }
+        }
+        for (String item : resultsByValue) {
             if (!combinedResults.contains(item)) {
                 combinedResults.add(item);
             }
         }
 
-        // Iterasi melalui hasil dari pencarian berdasarkan value
-        for (String item : resultByValue) {
-            // Jika item belum ada dalam combinedResults, tambahkan
-            if (!combinedResults.contains(item)) {
-                combinedResults.add(item);
-            }
-        }
-
-        // Panggil checkGimmick untuk menambahkan gimmick
-        GimmickUtil.checkGimmick(combinedResults);
+        // Now you can use the combinedResults list as needed
+        // for (String combinedResult : combinedResults) {
+        //     System.out.println(combinedResult);
+        // }
 
         return combinedResults;
     }
 
 }
+
