@@ -9,7 +9,7 @@ public class GameGimmick<K> implements GimmickAction<K> {
     // Implement the gimmick for "kertas," "gunting," "batu," "rock," "paper,"
     // and "scissor" nodes
     List<String> choices =
-        Arrays.asList("rock", "paper", "scissor");
+    Arrays.asList("rock", "paper", "scissor");
     Random random = new Random();
     boolean isIndonesian = key.toString().equals("kertas") || key.toString().equals("gunting") || key.toString().equals("batu");
     String playerChoice = key.toString().equals("kertas") ? "paper" : key.toString().equals("gunting") ? "scissor" : key.toString().equals("batu") ? "rock" : key.toString();
