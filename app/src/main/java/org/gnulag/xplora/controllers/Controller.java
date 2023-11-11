@@ -117,34 +117,17 @@ public class Controller implements Initializable {
             });
         });
     }
-    // private String formatTextWithBold(String text, String inputText, String keyword) {
-    //     if (text != null && inputText != null) {
-    //         String[] words = text.split("\\s+");
-    //         StringBuilder formattedText = new StringBuilder();
 
-    //         for (String word : words) {
-    //             if (word.toLowerCase().contains(inputText.toLowerCase()) && word.toLowerCase().contains(keyword)) {
-    //                 formattedText.append("<b>").append(word).append("</b>").append(" ");
-    //             } else {
-    //                 formattedText.append(word).append(" ");
-    //             }
-    //         }
-
-    //         return formattedText.toString().trim();
-    //     }
-
-    //     return text;
-    // }
     private void applyTextHighlight(WebView webView, String inputText) {
         webView.getEngine().getLoadWorker().stateProperty().addListener(
             (observable, oldValue, newValue) -> {
                 if (newValue == Worker.State.SUCCEEDED) {
                     String content = webView.getEngine().getDocument().getDocumentElement().getTextContent();
 
-                    // Menyamakan warna dan gaya teks
+                    // Menyamakan warna bold dan gaya teks
                     content = content.replaceAll(inputText, String.format("<b>%s</b>", inputText));
 
-                // Mengatur teks dengan gaya khusus ke dalam WebView
+                    // Mengatur teks dengan gaya khusus ke dalam WebView
                     webView.getEngine().loadContent(content);
                     webView.getEngine().setUserStyleSheetLocation(getClass().getResource("/css/styles.css").toString());
                 }
