@@ -11,7 +11,7 @@ class Node<K, V> {
   public Node<K, V> left;
   public Node<K, V> right;
   public boolean isRed;
-  public GimmickAction<K, V> gimmick;
+  public GimmickAction<K> gimmick;
 }
 
 public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
@@ -106,7 +106,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     fixInsert(node);
   }
 
-  public void insert(K key, V value, GimmickAction<K, V> gimmick) {
+  public void insert(K key, V value, GimmickAction<K> gimmick) {
     Node<K, V> node = new Node<K, V>();
     node.parent = null;
     node.key = key;
@@ -183,7 +183,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     Node<K, V> node = searchKeyAndValueByExactKeyHelper(root, targetKey);
     if (node != TNULL) {
       if (node.gimmick != null) {
-        node.value = node.gimmick.gimmick(node.key, node.value);
+        node.value = (V) node.gimmick.gimmick(node.key);
         return node.value.toString();
       }
       return node.key + "\n" + node.value;
@@ -353,7 +353,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
       return;
     }
 
-    if (node.key.toString().contains(targetKeySubstring)) {
+    if (node.key.toString().contains(targetKeySubstring) && node.gimmick == null) {
       String keyValue = node.key + "\n" + node.value;
       matchingKeyValues.add(keyValue);
     }
@@ -368,7 +368,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
       return;
     }
 
-    if (node.value != null && node.value.toString().contains(targetValueSubstring)) {
+    if (node.value != null && node.value.toString().contains(targetValueSubstring) && node.gimmick == null) {
       String keyValue = node.key + "\n" + node.value;
       matchingKeyValues.add(keyValue);
     }
