@@ -11,7 +11,9 @@ public class PrintsUtil {
         List<String> resultsByKey = rbTree.searchKeysAndValuesByContainingKey(searchParam);
         List<String> resultsByValue = rbTree.searchKeysAndValuesByContainingValue(searchParam);
         ArrayList<String> combinedResults = new ArrayList<>();
-        combinedResults.add(result);
+        if (result != null) {
+            combinedResults.add(result);
+        }
 
         for (String item : resultsByKey) {
             if (!combinedResults.contains(item)) {
