@@ -180,7 +180,7 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
   }
 
   public String searchKeyAndValueByKey(String targetKey) {
-    Node<K, V> node = searchKeyAndValueByExactKeyHelper(root, targetKey);
+    Node<K, V> node = searchKeyAndValueByKeyHelper(root, targetKey);
     if (node != TNULL) {
       if (node.gimmick != null) {
         node.value = (V) node.gimmick.gimmick(node.key);
@@ -189,24 +189,6 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
       return node.key + "\n" + node.value;
     }
     return null;
-  }
-
-  private Node<K, V> searchKeyAndValueByExactKeyHelper(Node<K, V> node, String targetKey) {
-    if (node == TNULL) {
-      return TNULL;
-    }
-
-    if (node.key.equals(targetKey)) {
-      return node;
-    }
-
-    Node<K, V> leftResult = searchKeyAndValueByExactKeyHelper(node.left, targetKey);
-    if (leftResult != TNULL) {
-      return leftResult;
-    }
-
-    Node<K, V> rightResult = searchKeyAndValueByExactKeyHelper(node.right, targetKey);
-    return rightResult;
   }
 
   public ArrayList<String> searchKeysAndValuesByContainingKey(String targetKeySubstring) {
@@ -347,6 +329,24 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     return rightResult;
   }
 
+  private Node<K, V> searchKeyAndValueByKeyHelper(Node<K, V> node, String targetKey) {
+    if (node == TNULL) {
+      return TNULL;
+    }
+
+    if (node.key.equals(targetKey)) {
+      return node;
+    }
+
+    Node<K, V> leftResult = searchKeyAndValueByKeyHelper(node.left, targetKey);
+    if (leftResult != TNULL) {
+      return leftResult;
+    }
+
+    Node<K, V> rightResult = searchKeyAndValueByKeyHelper(node.right, targetKey);
+    return rightResult;
+  }
+
   private void searchKeysAndValuesByContainingKeyHelper(
       Node<K, V> node, String targetKeySubstring, List<String> matchingKeyValues) {
     if (node == TNULL) {
@@ -368,7 +368,9 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
       return;
     }
 
-    if (node.value != null && node.value.toString().contains(targetValueSubstring) && node.gimmick == null) {
+    if (node.value != null
+        && node.value.toString().contains(targetValueSubstring)
+        && node.gimmick == null) {
       String keyValue = node.key + "\n" + node.value;
       matchingKeyValues.add(keyValue);
     }

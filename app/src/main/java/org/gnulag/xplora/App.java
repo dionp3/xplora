@@ -24,7 +24,7 @@ class App {
     // Load JSON data
     JSONUtil.loadJsonData(rbTree, "/data.json");
 
-    String searchParam = "kertas";
-    PrintsUtil.printRedBlackTreeResults(rbTree, searchParam);
+    String searchParam = "randOm";
+    PrintsUtil.printRedBlackTreeResults(rbTree, searchParam.toLowerCase());
   }
 }
