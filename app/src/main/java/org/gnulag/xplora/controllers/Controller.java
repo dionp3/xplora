@@ -90,7 +90,7 @@ public class Controller implements Initializable {
                 applyTextHighlight(webView, searchBar.getText());
                 textAreaContainer.getChildren().add(webView);
 
-                searchBar.clear(); 
+                // searchBar.clear(); 
 
 
                 TranslateTransition slide = new TranslateTransition();
