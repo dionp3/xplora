@@ -1,6 +1,5 @@
 package org.gnulag.xplora.controllers;
 
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +62,7 @@ public class Controller implements Initializable {
         searchButton.setOnMouseClicked(event -> {
             String searchParam = searchBar.getText().toLowerCase();
             if (!searchParam.isEmpty()) {
-                PrintsUtil.printRedBlackTreeResults(rbTree, searchParam);
-                List<String> results = rbTree.searchKeysAndValuesByContainingKey(searchParam);
+                List<String> results = PrintsUtil.printRedBlackTreeResults(rbTree, searchParam);
 
                 // Clear previous results
                 listView.getItems().clear();
@@ -76,19 +74,7 @@ public class Controller implements Initializable {
 
         slider.setTranslateX(400);
         listView.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.5));
-            slide.setNode(slider);
 
-            slide.setToX(0);
-            slide.play();
-
-            slider.setTranslateX(400);
-
-            slide.setOnFinished((ActionEvent e) -> {
-                listView.setVisible(true);
-                backButton.setVisible(true);
-            });
         });
 
         backButton.setOnMouseClicked(event -> {
