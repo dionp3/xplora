@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrintsUtil {
-    public static void printRedBlackTreeResults(
-        RedBlackTreeMap<String, String> rbTree, String searchParam) {
+    public static void printRedBlackTreeResults(RedBlackTreeMap<String, String> rbTree, String searchParam) {
         String result = rbTree.searchKeyAndValueByKey(searchParam);
         List<String> resultsByKey = rbTree.searchKeysAndValuesByContainingKey(searchParam);
         List<String> resultsByValue = rbTree.searchKeysAndValuesByContainingValue(searchParam);

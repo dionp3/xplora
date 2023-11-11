@@ -1,30 +1,24 @@
 package org.gnulag.xplora;
 
-import org.gnulag.xplora.models.RedBlackTreeMap;
-import org.gnulag.xplora.utils.GameGimmick;
-import org.gnulag.xplora.utils.JSONUtil;
-import org.gnulag.xplora.utils.PrintsUtil;
-import org.gnulag.xplora.utils.RandomGimmick;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-class App {
-  public static void main(String[] args) {
-    // Create a Red-Black Tree Map
-    RedBlackTreeMap<String, String> rbTree = new RedBlackTreeMap<>();
+public class App extends Application {
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/fxml.main"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
 
-    // Insert nodes with different gimmicks
-    rbTree.insert("random", null, new RandomGimmick<>());
-    rbTree.insert("acak", null, new RandomGimmick<>());
-    rbTree.insert("rock", null, new GameGimmick<>());
-    rbTree.insert("paper", null, new GameGimmick<>());
-    rbTree.insert("scissor", null, new GameGimmick<>());
-    rbTree.insert("batu", null, new GameGimmick<>());
-    rbTree.insert("gunting", null, new GameGimmick<>());
-    rbTree.insert("kertas", null, new GameGimmick<>());
+        stage.setScene(scene);
+        stage.show();
 
-    // Load JSON data
-    JSONUtil.loadJsonData(rbTree, "/data.json");
+    }
 
-    String searchParam = "randOm";
-    PrintsUtil.printRedBlackTreeResults(rbTree, searchParam.toLowerCase());
-  }
+        public static void main(String[] args) {
+        launch(args);
+    }
 }
