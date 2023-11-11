@@ -63,7 +63,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String inputText = searchBar.getText();
         searchButton.setOnMouseClicked(event -> {
             String searchParam = searchBar.getText().toLowerCase();
             if (!searchParam.isEmpty()) {
@@ -73,7 +72,14 @@ public class Controller implements Initializable {
                 listView.getItems().clear();
 
                 // Display new results in the ListView
-                listView.getItems().addAll(results);
+                for (String result : results) {
+                    String[] resultSplit = result.split("\n");
+                    String cutResult = "";
+                    for (int i = 0; i < 5; i++) {
+                            cutResult += resultSplit[i];
+                    }
+                    listView.getItems().add(cutResult);
+                }
             }
         });
 
