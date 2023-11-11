@@ -9,7 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -74,6 +76,23 @@ public class Controller implements Initializable {
                         }
                         listView.getItems().add(cutResult);
                     }
+                    listView.setCellFactory(param -> new ListCell<String>(){
+                    {
+                        setPrefWidth(param.getPrefWidth());
+                        setWrapText(true);
+                    }
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                        }
+                    }
+                    });
                 }
             });
         slider.setTranslateX(400);
@@ -85,7 +104,7 @@ public class Controller implements Initializable {
                     textAreaContainer.getChildren().clear();
 
                     WebView webView = new WebView();
-                    String content = "judul: " + contents;
+                    String content = contents;
                     webView.getEngine().loadContent(content);
                     applyTextHighlight(webView, searchBar.getText());
                     textAreaContainer.getChildren().add(webView);
@@ -144,10 +163,7 @@ public class Controller implements Initializable {
 
                         // Mengatur teks dengan gaya khusus ke dalam WebView
                         webView.getEngine().loadContent(content);
-                        webView
-                            .getEngine()
-                            .setUserStyleSheetLocation(
-                                getClass().getResource("/css/styles.css").toString());
+
                     }
                 });
     }
