@@ -72,11 +72,11 @@ public class Controller implements Initializable {
         listView.setOnMouseClicked(event -> {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                String contens = selectedItem;
+                String contents = selectedItem;
                 textAreaContainer.getChildren().clear();
 
                 WebView webView = new WebView();
-                String content = "judul: " + contens ;
+                String content = "judul: " + contents ;
                 webView.getEngine().loadContent(content);
                 applyTextHighlight(webView, searchBar.getText());
                 textAreaContainer.getChildren().add(webView);
