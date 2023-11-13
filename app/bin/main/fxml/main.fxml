@@ -10,57 +10,67 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gnulag.xplora.controllers.Controller">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1054.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gnulag.xplora.controllers.Controller">
   <children>
-    <Pane prefHeight="700.0" prefWidth="1000.0">
+    <Pane prefHeight="700.0" prefWidth="1069.0">
       <children>
-        <ImageView fitHeight="258.0" fitWidth="280.0" layoutX="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="129.0" fitWidth="358.0" layoutX="149.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../image/icon%20xplora.png" />
           </image>
         </ImageView>
-        <TextField fx:id="searchBar" layoutX="5.0" layoutY="115.0" prefHeight="35.0" prefWidth="596.0" />
-        <Label fx:id="searchButton" alignment="CENTER" layoutX="526.0" layoutY="115.0" prefHeight="35.0" prefWidth="75.0">
+        <TextField fx:id="searchBar" layoutX="21.0" layoutY="126.0" prefHeight="42.0" prefWidth="613.0" style="-fx-background-radius: 100;">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+      <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="576.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+          <Image url="@../image/magnifying_glass_search_icon_208685.png" />
+        </image>
+      </ImageView>
+        <ListView fx:id="listView" layoutX="5.0" layoutY="178.0" maxHeight="535.0" maxWidth="645.0" prefHeight="517.0" prefWidth="645.0" style="-fx-background-radius: 10;" />
+          <AnchorPane fx:id="slider" layoutX="655.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #f4f4f4;">
+            <children>
+              <Label fx:id="backButton" alignment="CENTER" layoutX="8.0" layoutY="13.0" prefHeight="30.0" prefWidth="56.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Back">
+                <font>
+                  <Font name="System Bold" size="14.0" />
+                </font>
+                <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+                </cursor>
+              </Label>
+              <Label fx:id="title" layoutX="162.0" layoutY="13.0" text="Judul">
+                <font>
+                  <Font name="SansSerif Bold Italic" size="25.0" />
+                </font>
+              </Label>
+              <ScrollPane layoutY="53.0" prefHeight="647.0" prefWidth="400.0">
+                <content>
+                  <VBox fx:id="textAreaContainer" prefHeight="643.0" prefWidth="398.0">
+                    <children>
+                      <TextArea fx:id="description" maxHeight="647.0" maxWidth="384.0" prefHeight="351.0" prefWidth="384.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextArea>
+                    </children>
+                  </VBox>
+                </content>
+              </ScrollPane>
+            </children>
+          </AnchorPane>
+        <Label fx:id="searchButton" alignment="CENTER" layoutX="557.0" layoutY="126.0" prefHeight="42.0" prefWidth="75.0">
           <font>
             <Font name="Cantarell Bold" size="25.0" />
           </font>
           <cursor>
             <Cursor fx:constant="CLOSED_HAND" />
           </cursor>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/magnifying_glass_search_icon_208685.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
         </Label>
-        <ListView fx:id="listView" layoutX="5.0" layoutY="160.0" maxHeight="535.0" maxWidth="600.0" prefHeight="535.0" prefWidth="596.0" />
       </children>
     </Pane>
-    <AnchorPane fx:id="slider" layoutX="600.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #C2BDBD;">
-      <children>
-        <Label fx:id="backButton" alignment="CENTER" layoutX="5.0" layoutY="12.0" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #A99D9D; -fx-border-radius: 10;" text="Back">
-          <font>
-            <Font name="Hack Bold" size="15.0" />
-          </font>
-          <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
-          </cursor>
-        </Label>
-        <Label fx:id="title" layoutX="162.0" layoutY="13.0" text="Judul">
-          <font>
-            <Font name="SansSerif Bold Italic" size="25.0" />
-          </font>
-        </Label>
-        <ScrollPane layoutY="53.0" prefHeight="647.0" prefWidth="400.0">
-          <content>
-            <TextArea fx:id="description" maxHeight="647.0" maxWidth="384.0" prefHeight="647.0" prefWidth="384.0" />
-          </content>
-        </ScrollPane>
-      </children>
-    </AnchorPane>
   </children>
 </AnchorPane>
