@@ -17,7 +17,6 @@ public class App extends Application {
 
             stage.setTitle("XPLORA");
             stage.getIcons().add(new Image("/image/icon.png"));
-            stage.setScene(new Scene(root, 1068, 715));
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
