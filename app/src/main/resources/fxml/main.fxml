@@ -24,18 +24,18 @@
                   <Image url="@../image/icon%20xplora.png" />
                 </image>
               </ImageView>
-              <TextField fx:id="searchBar" layoutX="20.0" layoutY="127.0" prefHeight="42.0" prefWidth="613.0" style="-fx-background-radius: 100;">
+              <TextField fx:id="searchBar" layoutX="20.0" layoutY="127.0" prefHeight="42.0" prefWidth="613.0" promptText="   Search here" style="-fx-background-radius: 100; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 10, 0, 0, 2);">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-            <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="582.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="35.0" layoutX="582.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@../image/magnifying_glass_search_icon_208685.png" />
               </image>
             </ImageView>
               <ListView fx:id="listView" layoutX="5.0" layoutY="179.0" maxHeight="535.0" maxWidth="645.0" prefHeight="525.0" prefWidth="645.0" style="-fx-background-radius: 10;" />
-              <Label fx:id="searchButton" alignment="CENTER" layoutX="563.0" layoutY="127.0" prefHeight="42.0" prefWidth="75.0">
+              <Label fx:id="searchButton" alignment="CENTER" layoutX="562.0" layoutY="127.0" prefHeight="42.0" prefWidth="75.0">
                 <font>
                   <Font name="Cantarell Bold" size="25.0" />
                 </font>
