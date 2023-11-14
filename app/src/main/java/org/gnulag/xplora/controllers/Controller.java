@@ -95,7 +95,7 @@ public class Controller implements Initializable {
                     });
                 }
             });
-        slider.setTranslateX(400);
+        slider.setTranslateX(500);
         listView.setOnMouseClicked(
             event -> {
                 String selectedItem = listView.getSelectionModel().getSelectedItem();
@@ -134,7 +134,7 @@ public class Controller implements Initializable {
                 slide.setDuration(Duration.seconds(0.5));
                 slide.setNode(slider);
 
-                slide.setToX(400);
+                slide.setToX(500);
                 slide.play();
 
                 slider.setTranslateX(0);
