@@ -13,29 +13,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="1068.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gnulag.xplora.controllers.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="899.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gnulag.xplora.controllers.Controller">
   <children>
-    <Pane prefHeight="700.0" prefWidth="1089.0">
+    <Pane prefHeight="700.0" prefWidth="1142.0">
       <children>
-            <AnchorPane fx:id="mainSlide" layoutX="5.0" layoutY="2.0" prefHeight="200.0" prefWidth="666.0">
+            <AnchorPane fx:id="inputSlider" layoutX="5.0" layoutY="2.0" prefHeight="511.0" prefWidth="1134.0">
                <children>
-              <ImageView fitHeight="129.0" fitWidth="358.0" layoutX="144.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+              <ImageView fitHeight="111.0" fitWidth="450.0" layoutX="379.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                   <Image url="@../image/icon%20xplora.png" />
                 </image>
               </ImageView>
-              <TextField fx:id="searchBar" layoutX="20.0" layoutY="127.0" prefHeight="42.0" prefWidth="613.0" style="-fx-background-radius: 100;">
+              <TextField fx:id="searchBar" layoutX="259.0" layoutY="155.0" prefHeight="42.0" prefWidth="613.0" promptText="   Search here" style="-fx-background-radius: 100; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 10, 0, 0, 2);">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-            <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="582.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="35.0" layoutX="821.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@../image/magnifying_glass_search_icon_208685.png" />
               </image>
             </ImageView>
-              <ListView fx:id="listView" layoutX="5.0" layoutY="179.0" maxHeight="535.0" maxWidth="645.0" prefHeight="525.0" prefWidth="645.0" style="-fx-background-radius: 10;" />
-              <Label fx:id="searchButton" alignment="CENTER" layoutX="563.0" layoutY="127.0" prefHeight="42.0" prefWidth="75.0">
+              <Label fx:id="searchButton" alignment="CENTER" layoutX="801.0" layoutY="155.0" prefHeight="42.0" prefWidth="75.0">
                 <font>
                   <Font name="Cantarell Bold" size="25.0" />
                 </font>
@@ -43,38 +42,46 @@
                   <Cursor fx:constant="CLOSED_HAND" />
                 </cursor>
               </Label>
+                <AnchorPane fx:id="slider" layoutX="665.0" layoutY="222.0" prefHeight="657.0" prefWidth="459.0" style="-fx-background-color: #f4f4f4;">
+                  <children>
+                    <Label fx:id="backButton" alignment="CENTER" layoutY="13.0" prefHeight="30.0" prefWidth="56.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Back">
+                      <font>
+                        <Font name="System Bold" size="14.0" />
+                      </font>
+                      <cursor>
+                        <Cursor fx:constant="CLOSED_HAND" />
+                      </cursor>
+                    </Label>
+                    <ScrollPane layoutY="53.0" prefHeight="604.0" prefWidth="459.0">
+                      <content>
+                        <VBox fx:id="textAreaContainer" prefHeight="608.0" prefWidth="443.0">
+                          <children>
+                            <TextArea fx:id="description" maxHeight="647.0" maxWidth="455.0" prefHeight="351.0" prefWidth="455.0" style="-fx-background-radius: 10;">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </TextArea>
+                          </children>
+                        </VBox>
+                      </content>
+                    </ScrollPane>
+                  </children>
+                </AnchorPane>
+                  <AnchorPane fx:id="mainSlider" layoutX="1.0" layoutY="234.0" prefHeight="657.0" prefWidth="664.0">
+                     <children>
+                    <ListView fx:id="listView" layoutX="3.0" layoutY="2.0" maxHeight="645.0" maxWidth="654.0" prefHeight="645.0" prefWidth="650.0" style="-fx-background-radius: 10;" />
+                        <Label fx:id="clearListView" alignment="CENTER" layoutX="601.0" layoutY="607.0" prefHeight="20.0" prefWidth="44.0" style="-fx-background-radius: 100; -fx-background-color: #f4f4f4;" text="Clear">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
-          <AnchorPane fx:id="slider" layoutX="667.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #f4f4f4;">
-            <children>
-              <Label fx:id="backButton" alignment="CENTER" layoutY="13.0" prefHeight="30.0" prefWidth="56.0" style="-fx-background-radius: 100; -fx-background-color: white;" text="Back">
-                <font>
-                  <Font name="System Bold" size="14.0" />
-                </font>
-                <cursor>
-                  <Cursor fx:constant="CLOSED_HAND" />
-                </cursor>
-              </Label>
-              <Label fx:id="title" layoutX="162.0" layoutY="13.0" text="Judul">
-                <font>
-                  <Font name="SansSerif Bold Italic" size="25.0" />
-                </font>
-              </Label>
-              <ScrollPane layoutY="53.0" prefHeight="647.0" prefWidth="394.0">
-                <content>
-                  <VBox fx:id="textAreaContainer" prefHeight="643.0" prefWidth="390.0">
-                    <children>
-                      <TextArea fx:id="description" maxHeight="647.0" maxWidth="384.0" prefHeight="351.0" prefWidth="384.0" style="-fx-background-radius: 10;">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </TextArea>
-                    </children>
-                  </VBox>
-                </content>
-              </ScrollPane>
-            </children>
-          </AnchorPane>
       </children>
     </Pane>
   </children>

@@ -32,9 +32,12 @@ public class Controller implements Initializable {
 
     @FXML private Label searchButton;
 
+    @FXML private Label clearListView;
+
     @FXML private AnchorPane slider;
 
     @FXML private VBox textAreaContainer;
+
     @FXML private Label backButton;
 
     @FXML private TextArea description;
@@ -101,14 +104,20 @@ public class Controller implements Initializable {
                         }
                     }
                     private String getShortenedText(String fullText) {
-                    // Logika pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
-                        int maxLength = 150;
+                        // Menghitung panjang rata-rata baris (disarankan menghitung sebenarnya dari teks)
+                        int averageLineLength = 40; // Ganti dengan panjang rata-rata sesuai kebutuhan
+
+                        // Menghitung maksimum karakter berdasarkan 4 baris
+                        int maxLength = averageLineLength * 4;
+
+                        // Pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
                         return (fullText.length() > maxLength) ? fullText.substring(0, maxLength) + "..." : fullText;
                     }
+
                     });
                 }
             });
-        slider.setTranslateX(400);
+        slider.setTranslateX(500);
         listView.setOnMouseClicked(
             event -> {
                 String selectedItem = listView.getSelectionModel().getSelectedItem();
@@ -142,12 +151,12 @@ public class Controller implements Initializable {
             });
 
         backButton.setOnMouseClicked(
-            event -> {
+            event -> { 
                 TranslateTransition slide = new TranslateTransition();
                 slide.setDuration(Duration.seconds(0.5));
                 slide.setNode(slider);
 
-                slide.setToX(400);
+                slide.setToX(500);
                 slide.play();
 
                 slider.setTranslateX(0);
@@ -158,6 +167,13 @@ public class Controller implements Initializable {
                         backButton.setVisible(false);
                     });
             });
+
+        clearListView.setOnMouseClicked(
+            event -> {
+                listView.getItems().clear();
+                searchBar.clear();
+            }
+        );
     }
 
     private void applyTextHighlight(WebView webView, String inputText) {
