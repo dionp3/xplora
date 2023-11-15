@@ -48,14 +48,14 @@ public class Controller implements Initializable {
 
     public Controller() {
         rbTree = new RedBlackTreeMap<>();
-        rbTree.insert("1", null, new RandomGimmick<>());
-        rbTree.insert("2", null, new RandomGimmick<>());
-        rbTree.insert("3", null, new GameGimmick<>());
-        rbTree.insert("4", null, new GameGimmick<>());
-        rbTree.insert("5", null, new GameGimmick<>());
-        rbTree.insert("6", null, new GameGimmick<>());
-        rbTree.insert("7", null, new GameGimmick<>());
-        rbTree.insert("8", null, new GameGimmick<>());
+        rbTree.insert("acak", null, new RandomGimmick<>());
+        rbTree.insert("random", null, new RandomGimmick<>());
+        rbTree.insert("batu", null, new GameGimmick<>());
+        rbTree.insert("gunting", null, new GameGimmick<>());
+        rbTree.insert("kertas", null, new GameGimmick<>());
+        rbTree.insert("rock", null, new GameGimmick<>());
+        rbTree.insert("paper", null, new GameGimmick<>());
+        rbTree.insert("scissor", null, new GameGimmick<>());
         JSONUtil.loadJsonData(rbTree, "/data.json");
         //rbTree.printTree();
     }
@@ -104,11 +104,10 @@ public class Controller implements Initializable {
                           }
                         }
                     }
-                    private String getShortenedText(String fullText) {
-                        // Menghitung panjang rata-rata baris (disarankan menghitung sebenarnya dari teks)
-                        int averageLineLength = 40; // Ganti dengan panjang rata-rata sesuai kebutuhan
+                    protected String getShortenedText(String fullText) {
 
-                        // Menghitung maksimum karakter berdasarkan 4 baris
+                        int averageLineLength = 40; 
+
                         int maxLength = averageLineLength * 4;
 
                         // Pemendekan teks, misalnya hanya menampilkan beberapa karakter awal

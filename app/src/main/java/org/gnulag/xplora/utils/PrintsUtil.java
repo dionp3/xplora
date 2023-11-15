@@ -11,10 +11,6 @@ public class PrintsUtil {
         List<String> resultsByValue = rbTree.searchKeysAndValuesByContainingValue(searchParam);
         ArrayList<String> combinedResults = new ArrayList<>();
 
-        // Now you can use the combinedResults list as needed
-        for (String combinedResult : combinedResults) {
-            System.out.println(combinedResult);
-        }
         if (result != null) {
             combinedResults.add(result);
         }
