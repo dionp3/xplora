@@ -95,36 +95,16 @@ public class Controller implements Initializable {
                             // setText(item);
                           if (isFullText) {
                               setText(item);
-                              setGraphic(createShowLessButton());
                           } else {
                               setText(getShortenedText(item));
-                              setGraphic(createShowMoreButton(item));
                           }
                         }
                     }
-            private String getShortenedText(String fullText) {
-        // Logika pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
-        int maxLength = 50;
-        return (fullText.length() > maxLength) ? fullText.substring(0, maxLength) + "..." : fullText;
-    }
-
-    private Button createShowMoreButton(String fullText) {
-        Button showMoreButton = new Button("Show More");
-        showMoreButton.setOnAction(event -> {
-            isFullText = true;
-            updateItem(fullText, false);
-        });
-        return showMoreButton;
-    }
-
-    private Button createShowLessButton() {
-        Button showLessButton = new Button("Show Less");
-        showLessButton.setOnAction(event -> {
-            isFullText = false;
-            updateItem(getShortenedText(getItem()), false);
-        });
-        return showLessButton;
-    }
+                    private String getShortenedText(String fullText) {
+                    // Logika pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
+                        int maxLength = 150;
+                        return (fullText.length() > maxLength) ? fullText.substring(0, maxLength) + "..." : fullText;
+                    }
                     });
                 }
             });
