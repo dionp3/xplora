@@ -69,7 +69,15 @@
                 </AnchorPane>
                   <AnchorPane fx:id="mainSlider" layoutX="1.0" layoutY="234.0" prefHeight="657.0" prefWidth="664.0">
                      <children>
-                    <ListView fx:id="listView" layoutX="8.0" layoutY="2.0" maxHeight="645.0" maxWidth="645.0" prefHeight="645.0" prefWidth="645.0" style="-fx-background-radius: 10;" />
+                    <ListView fx:id="listView" layoutX="3.0" layoutY="2.0" maxHeight="645.0" maxWidth="654.0" prefHeight="645.0" prefWidth="650.0" style="-fx-background-radius: 10;" />
+                        <Label fx:id="clearListView" alignment="CENTER" layoutX="601.0" layoutY="607.0" prefHeight="20.0" prefWidth="44.0" style="-fx-background-radius: 100; -fx-background-color: #f4f4f4;" text="Clear">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>

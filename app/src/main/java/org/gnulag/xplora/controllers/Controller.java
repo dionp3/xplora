@@ -31,9 +31,12 @@ public class Controller implements Initializable {
 
     @FXML private Label searchButton;
 
+    @FXML private Label clearListView;
+
     @FXML private AnchorPane slider;
 
     @FXML private VBox textAreaContainer;
+
     @FXML private Label backButton;
 
     @FXML private TextArea description;
@@ -129,7 +132,7 @@ public class Controller implements Initializable {
             });
 
         backButton.setOnMouseClicked(
-            event -> {
+            event -> { 
                 TranslateTransition slide = new TranslateTransition();
                 slide.setDuration(Duration.seconds(0.5));
                 slide.setNode(slider);
@@ -145,6 +148,13 @@ public class Controller implements Initializable {
                         backButton.setVisible(false);
                     });
             });
+
+        clearListView.setOnMouseClicked(
+            event -> {
+                listView.getItems().clear();
+                searchBar.clear();
+            }
+        );
     }
 
     private void applyTextHighlight(WebView webView, String inputText) {
