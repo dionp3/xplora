@@ -98,36 +98,22 @@ public class Controller implements Initializable {
                             // setText(item);
                           if (isFullText) {
                               setText(item);
-                              setGraphic(createShowLessButton());
                           } else {
                               setText(getShortenedText(item));
-                              setGraphic(createShowMoreButton(item));
                           }
                         }
                     }
-            private String getShortenedText(String fullText) {
-        // Logika pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
-        int maxLength = 50;
-        return (fullText.length() > maxLength) ? fullText.substring(0, maxLength) + "..." : fullText;
-    }
+                    private String getShortenedText(String fullText) {
+                        // Menghitung panjang rata-rata baris (disarankan menghitung sebenarnya dari teks)
+                        int averageLineLength = 40; // Ganti dengan panjang rata-rata sesuai kebutuhan
 
-    private Button createShowMoreButton(String fullText) {
-        Button showMoreButton = new Button("Show More");
-        showMoreButton.setOnAction(event -> {
-            isFullText = true;
-            updateItem(fullText, false);
-        });
-        return showMoreButton;
-    }
+                        // Menghitung maksimum karakter berdasarkan 4 baris
+                        int maxLength = averageLineLength * 4;
 
-    private Button createShowLessButton() {
-        Button showLessButton = new Button("Show Less");
-        showLessButton.setOnAction(event -> {
-            isFullText = false;
-            updateItem(getShortenedText(getItem()), false);
-        });
-        return showLessButton;
-    }
+                        // Pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
+                        return (fullText.length() > maxLength) ? fullText.substring(0, maxLength) + "..." : fullText;
+                    }
+
                     });
                 }
             });
