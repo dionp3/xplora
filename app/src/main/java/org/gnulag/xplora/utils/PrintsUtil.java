@@ -3,7 +3,7 @@ package org.gnulag.xplora.utils;
 import java.util.ArrayList;
 
 public class PrintsUtil {
-    public static ArrayList<String> combineResults(ArrayList<String> resultByKey, ArrayList<String> resultByValue) {
+    public static ArrayList<String> combineResults(ArrayList<String> resultByKey, ArrayList<String> resultByValue, String searchParam) {
         ArrayList<String> combinedResults = new ArrayList<>(resultByKey);
 
         // Iterasi melalui hasil dari pencarian berdasarkan key
@@ -23,8 +23,11 @@ public class PrintsUtil {
         }
 
         // Panggil checkGimmick untuk menambahkan gimmick
-        GimmickUtil.checkGimmick(combinedResults);
 
+        String gimmick = GimmickUtil.checkGimmick(searchParam);
+        if (!gimmick.isEmpty()) {
+          combinedResults.add(0, gimmick);
+        }
         return combinedResults;
     }
 }
