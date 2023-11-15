@@ -48,15 +48,16 @@ public class Controller implements Initializable {
 
     public Controller() {
         rbTree = new RedBlackTreeMap<>();
-        rbTree.insert("random", null, new RandomGimmick<>());
-        rbTree.insert("acak", null, new RandomGimmick<>());
-        rbTree.insert("rock", null, new GameGimmick<>());
-        rbTree.insert("paper", null, new GameGimmick<>());
-        rbTree.insert("scissor", null, new GameGimmick<>());
-        rbTree.insert("batu", null, new GameGimmick<>());
-        rbTree.insert("gunting", null, new GameGimmick<>());
-        rbTree.insert("kertas", null, new GameGimmick<>());
+        rbTree.insert("1", null, new RandomGimmick<>());
+        rbTree.insert("2", null, new RandomGimmick<>());
+        rbTree.insert("3", null, new GameGimmick<>());
+        rbTree.insert("4", null, new GameGimmick<>());
+        rbTree.insert("5", null, new GameGimmick<>());
+        rbTree.insert("6", null, new GameGimmick<>());
+        rbTree.insert("7", null, new GameGimmick<>());
+        rbTree.insert("8", null, new GameGimmick<>());
         JSONUtil.loadJsonData(rbTree, "/data.json");
+        //rbTree.printTree();
     }
 
     @Override
@@ -140,8 +141,6 @@ public class Controller implements Initializable {
                     slide.setToX(0);
                     slide.play();
 
-                    slider.setTranslateX(400);
-
                     slide.setOnFinished(
                     (ActionEvent e) -> {
                             listView.setVisible(true);
@@ -158,8 +157,6 @@ public class Controller implements Initializable {
 
                 slide.setToX(500);
                 slide.play();
-
-                slider.setTranslateX(0);
 
                 slide.setOnFinished(
                 (ActionEvent e) -> {

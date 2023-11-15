@@ -136,8 +136,18 @@ public class RedBlackTreeMap<K extends Comparable<K>, V extends Comparable<V>> {
     } else {
       y.right = node;
     }
-  }
 
+    if (node.parent == null) {
+      node.isRed = false;
+      return;
+    }
+
+    if (node.parent.parent == null) {
+      return;
+    }
+
+    fixInsert(node);
+  }
   public Node<K, V> minimum(Node<K, V> node) {
     while (node.left != TNULL) {
       node = node.left;
