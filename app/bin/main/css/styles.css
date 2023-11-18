@@ -1,15 +1,5 @@
-.root {
-	-fx-background-color: #f0f0f0;
-	-fx-padding: 20;
+.highlight {
+    -fx-font-weight: bold;
+    -fx-text-fill: blue;
 }
 
-.label {
-	-fx-font-size: 16px;
-	-fx-text-fill: #333;
-}
-
-.button {
-	-fx-font-size: 14px;
-	-fx-background-color: #007acc;
-	-fx-text-fill: white;
-}
