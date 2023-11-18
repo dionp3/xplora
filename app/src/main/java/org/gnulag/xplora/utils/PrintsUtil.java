@@ -6,9 +6,17 @@ public class PrintsUtil {
     public static ArrayList<String> combineResults(ArrayList<String> resultByKey, ArrayList<String> resultByValue, String searchParam) {
         ArrayList<String> combinedResults = new ArrayList<>(resultByKey);
 
+<<<<<<< HEAD
         // Iterasi melalui hasil dari pencarian berdasarkan key
         for (String item : resultByKey) {
             // Jika item belum ada dalam combinedResults, tambahkan
+=======
+        if (result != null) {
+            combinedResults.add(result);
+        }
+
+        for (String item : resultsByKey) {
+>>>>>>> test
             if (!combinedResults.contains(item)) {
                 combinedResults.add(item);
             }

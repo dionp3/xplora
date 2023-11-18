@@ -11,6 +11,7 @@ import org.gnulag.xplora.utils.JsonUtil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -33,20 +34,50 @@ public class Controller implements Initializable {
   @FXML
   private TextField searchBar;
 
+<<<<<<< HEAD
   @FXML
   private Label searchButton;
 
   @FXML
   private AnchorPane slider;
+=======
+    @FXML private Label clearListView;
+
+    @FXML private AnchorPane slider;
+
+    @FXML private VBox textAreaContainer;
+
+    @FXML private Label backButton;
+>>>>>>> test
 
   @FXML
   private VBox textAreaContainer;
 
+<<<<<<< HEAD
   @FXML
   private Label backButton;
 
   @FXML
   private TextArea description;
+=======
+    private boolean isFullText = false;
+
+    private RedBlackTreeMap<String, String> rbTree;
+
+    public Controller() {
+        rbTree = new RedBlackTreeMap<>();
+        rbTree.insert("acak", null, new RandomGimmick<>());
+        rbTree.insert("random", null, new RandomGimmick<>());
+        rbTree.insert("batu", null, new GameGimmick<>());
+        rbTree.insert("gunting", null, new GameGimmick<>());
+        rbTree.insert("kertas", null, new GameGimmick<>());
+        rbTree.insert("rock", null, new GameGimmick<>());
+        rbTree.insert("paper", null, new GameGimmick<>());
+        rbTree.insert("scissor", null, new GameGimmick<>());
+        JSONUtil.loadJsonData(rbTree, "/data.json");
+        //rbTree.printTree();
+    }
+>>>>>>> test
 
   private RedBlackTreeMap<String, String> rbTree;
 
@@ -108,16 +139,73 @@ public class Controller implements Initializable {
         slide.setToX(0);
         slide.play();
 
+<<<<<<< HEAD
         slider.setTranslateX(400);
 
         slide.setOnFinished(
             (ActionEvent e) -> {
               listView.setVisible(true);
               backButton.setVisible(true);
+=======
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            // setText(item);
+                          if (isFullText) {
+                              setText(item);
+                          } else {
+                              setText(getShortenedText(item));
+                          }
+                        }
+                    }
+                    protected String getShortenedText(String fullText) {
+
+                        int averageLineLength = 40; 
+
+                        int maxLength = averageLineLength * 4;
+
+                        // Pemendekan teks, misalnya hanya menampilkan beberapa karakter awal
+                        return (fullText.length() > maxLength) ? fullText.substring(0, maxLength) + "..." : fullText;
+                    }
+
+                    });
+                }
+            });
+        slider.setTranslateX(500);
+        listView.setOnMouseClicked(
+            event -> {
+                String selectedItem = listView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    String contents = selectedItem;
+                    textAreaContainer.getChildren().clear();
+
+                    WebView webView = new WebView();
+                    String content = contents;
+                    webView.getEngine().loadContent(content);
+                    applyTextHighlight(webView, searchBar.getText());
+                    textAreaContainer.getChildren().add(webView);
+
+                    // searchBar.clear();
+
+                    TranslateTransition slide = new TranslateTransition();
+                    slide.setDuration(Duration.seconds(0.5));
+                    slide.setNode(slider);
+
+                    slide.setToX(0);
+                    slide.play();
+
+                    slide.setOnFinished(
+                    (ActionEvent e) -> {
+                            listView.setVisible(true);
+                            backButton.setVisible(true);
+                        });
+                }
+>>>>>>> test
             });
       }
     });
 
+<<<<<<< HEAD
     backButton.setOnMouseClicked(event -> {
       TranslateTransition slide = new TranslateTransition();
       slide.setDuration(Duration.seconds(0.5));
@@ -134,6 +222,31 @@ public class Controller implements Initializable {
       });
     });
   }
+=======
+        backButton.setOnMouseClicked(
+            event -> { 
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.5));
+                slide.setNode(slider);
+
+                slide.setToX(500);
+                slide.play();
+
+                slide.setOnFinished(
+                (ActionEvent e) -> {
+                        listView.setVisible(true);
+                        backButton.setVisible(false);
+                    });
+            });
+
+        clearListView.setOnMouseClicked(
+            event -> {
+                listView.getItems().clear();
+                searchBar.clear();
+            }
+        );
+    }
+>>>>>>> test
 
   private void applyTextHighlight(WebView webView, String inputText) {
     webView
@@ -151,7 +264,14 @@ public class Controller implements Initializable {
                 // Mengatur teks dengan gaya khusus ke dalam WebView
                 webView.getEngine().loadContent(content);
 
+<<<<<<< HEAD
               }
             });
   }
+=======
+                    }
+                });
+    }
+
+>>>>>>> test
 }
