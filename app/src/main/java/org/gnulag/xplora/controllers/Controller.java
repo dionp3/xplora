@@ -1,13 +1,15 @@
 package org.gnulag.xplora.controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
-import javafx.concurrent.Worker;
-import javafx.event.ActionEvent;
+
+import org.gnulag.xplora.utils.PrintsUtil;
+import org.gnulag.xplora.models.RedBlackTreeMap;
+import org.gnulag.xplora.utils.JsonUtil;
+
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -18,20 +20,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.fxml.Initializable;
+import javafx.animation.TranslateTransition;
+import javafx.concurrent.Worker;
+import javafx.event.ActionEvent;
 import javafx.util.Duration;
-import org.gnulag.xplora.models.RedBlackTreeMap;
-import org.gnulag.xplora.utils.GameGimmick;
-import org.gnulag.xplora.utils.JSONUtil;
-import org.gnulag.xplora.utils.PrintsUtil;
-import org.gnulag.xplora.utils.RandomGimmick;
 
 public class Controller implements Initializable {
-    @FXML private ListView<String> listView;
 
-    @FXML private TextField searchBar;
+  @FXML
+  private ListView<String> listView;
 
-    @FXML private Label searchButton;
+  @FXML
+  private TextField searchBar;
 
+<<<<<<< HEAD
+  @FXML
+  private Label searchButton;
+
+  @FXML
+  private AnchorPane slider;
+=======
     @FXML private Label clearListView;
 
     @FXML private AnchorPane slider;
@@ -39,9 +48,18 @@ public class Controller implements Initializable {
     @FXML private VBox textAreaContainer;
 
     @FXML private Label backButton;
+>>>>>>> test
 
-    @FXML private TextArea description;
+  @FXML
+  private VBox textAreaContainer;
 
+<<<<<<< HEAD
+  @FXML
+  private Label backButton;
+
+  @FXML
+  private TextArea description;
+=======
     private boolean isFullText = false;
 
     private RedBlackTreeMap<String, String> rbTree;
@@ -59,40 +77,76 @@ public class Controller implements Initializable {
         JSONUtil.loadJsonData(rbTree, "/data.json");
         //rbTree.printTree();
     }
+>>>>>>> test
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        searchButton.setOnMouseClicked(
-            event -> {
-                String searchParam = searchBar.getText().toLowerCase();
-                if (!searchParam.isEmpty()) {
-                    List<String> results = PrintsUtil.printRedBlackTreeResults(rbTree, searchParam);
+  private RedBlackTreeMap<String, String> rbTree;
 
-                    // Clear previous results
-                    listView.getItems().clear();
+  public Controller() {
+    rbTree = new RedBlackTreeMap<>();
+    JsonUtil.loadJsonData(rbTree, "/data.json");
+  }
 
-                    // Display new results in the listView
-                    for (String result : results) {
-                        String[] resultSplit = result.split("\n");
-                        int resultSplitLength = resultSplit.length;
-                        System.out.println(resultSplitLength);
-                        String cutResult = "";
-                        int cutLength = 5 > resultSplitLength ? resultSplitLength : 5;
-                        for (int i = 0; i < cutLength; i++) {
-                            cutResult += resultSplit[i] + "\n";
-                        }
-                        listView.getItems().add(cutResult);
-                    }
-                    listView.setCellFactory(param -> new ListCell<String>(){
-                    {
-                        setPrefWidth(param.getPrefWidth());
-                        setWrapText(true);
-                    }
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    searchButton.setOnMouseClicked(event -> {
+      String searchParam = searchBar.getText().toLowerCase();
+      List<String> searchResultByKey = new ArrayList<>(rbTree.searchKeysAndValuesByContainingKey(searchParam));
+      List<String> searchResultByValue = new ArrayList<>(rbTree.searchKeysAndValuesByContainingValue(searchParam));
+      List<String> combinedResults = PrintsUtil.combineResults(new ArrayList<>(searchResultByKey),
+          new ArrayList<>(searchResultByValue), searchParam);
 
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
+      listView.getItems().clear();
+      listView.getItems().addAll(combinedResults);
 
+      listView.setCellFactory(param -> new ListCell<String>() {
+        {
+          setPrefWidth(param.getPrefWidth());
+          setWrapText(true);
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+          super.updateItem(item, empty);
+
+          if (item == null || empty) {
+            setText(null);
+          } else {
+            setText(item);
+          }
+        }
+      });
+    });
+
+    slider.setTranslateX(400);
+    listView.setOnMouseClicked(event -> {
+      String selectedItem = listView.getSelectionModel().getSelectedItem();
+      if (selectedItem != null) {
+        String contents = selectedItem;
+        textAreaContainer.getChildren().clear();
+
+        WebView webView = new WebView();
+        String content = contents;
+        webView.getEngine().loadContent(content);
+        applyTextHighlight(webView, searchBar.getText());
+        textAreaContainer.getChildren().add(webView);
+
+        // searchBar.clear();
+
+        TranslateTransition slide = new TranslateTransition();
+        slide.setDuration(Duration.seconds(0.5));
+        slide.setNode(slider);
+
+        slide.setToX(0);
+        slide.play();
+
+<<<<<<< HEAD
+        slider.setTranslateX(400);
+
+        slide.setOnFinished(
+            (ActionEvent e) -> {
+              listView.setVisible(true);
+              backButton.setVisible(true);
+=======
                         if (item == null || empty) {
                             setText(null);
                         } else {
@@ -146,8 +200,29 @@ public class Controller implements Initializable {
                             backButton.setVisible(true);
                         });
                 }
+>>>>>>> test
             });
+      }
+    });
 
+<<<<<<< HEAD
+    backButton.setOnMouseClicked(event -> {
+      TranslateTransition slide = new TranslateTransition();
+      slide.setDuration(Duration.seconds(0.5));
+      slide.setNode(slider);
+
+      slide.setToX(400);
+      slide.play();
+
+      slider.setTranslateX(0);
+
+      slide.setOnFinished((ActionEvent e) -> {
+        listView.setVisible(true);
+        backButton.setVisible(false);
+      });
+    });
+  }
+=======
         backButton.setOnMouseClicked(
             event -> { 
                 TranslateTransition slide = new TranslateTransition();
@@ -171,26 +246,32 @@ public class Controller implements Initializable {
             }
         );
     }
+>>>>>>> test
 
-    private void applyTextHighlight(WebView webView, String inputText) {
-        webView
-            .getEngine()
-            .getLoadWorker()
-            .stateProperty()
-            .addListener(
+  private void applyTextHighlight(WebView webView, String inputText) {
+    webView
+        .getEngine()
+        .getLoadWorker()
+        .stateProperty()
+        .addListener(
             (observable, oldValue, newValue) -> {
-                    if (newValue == Worker.State.SUCCEEDED) {
-                        String content =
-                        webView.getEngine().getDocument().getDocumentElement().getTextContent();
+              if (newValue == Worker.State.SUCCEEDED) {
+                String content = webView.getEngine().getDocument().getDocumentElement().getTextContent();
 
-                        // Menyamakan warna bold dan gaya teks
-                        content = content.replaceAll(inputText, String.format("<b>%s</b>", inputText));
+                // Menyamakan warna bold dan gaya teks
+                content = content.replaceAll(inputText, String.format("<b>%s</b>", inputText));
 
-                        // Mengatur teks dengan gaya khusus ke dalam WebView
-                        webView.getEngine().loadContent(content);
+                // Mengatur teks dengan gaya khusus ke dalam WebView
+                webView.getEngine().loadContent(content);
 
+<<<<<<< HEAD
+              }
+            });
+  }
+=======
                     }
                 });
     }
 
+>>>>>>> test
 }
