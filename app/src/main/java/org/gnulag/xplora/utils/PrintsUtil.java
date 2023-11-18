@@ -7,10 +7,13 @@ public class PrintsUtil {
         ArrayList<String> combinedResults = new ArrayList<>(resultByKey);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Iterasi melalui hasil dari pencarian berdasarkan key
         for (String item : resultByKey) {
             // Jika item belum ada dalam combinedResults, tambahkan
 =======
+=======
+>>>>>>> test
         if (result != null) {
             combinedResults.add(result);
         }
